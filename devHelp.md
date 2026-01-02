@@ -84,3 +84,7 @@ In Component
 `const { data: users, isLoading, error } = useUsers()`
 `const { data: components, isLoading, error } = useComponents()`
 
+
+
+## I'm stupid and need this
+#### `npm run dev`

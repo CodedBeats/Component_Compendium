@@ -16,7 +16,7 @@ src/
 │   │   ├── useAuth.js                  # user/session state + listener
 │   │   ├── useMagicLink.js             # Magic link send + verify logic
 │   │   ├── useGithubLogin.js           # github verification
-│   │   └── useEmailAndPassword.js      # email and password + verify logic
+│   │   └── usePasswordAuth.js              # email and password
 │   └── providers/
 │       └── AuthProvider.js             # wrapp app for global auth context
 │

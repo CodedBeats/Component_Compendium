@@ -1,156 +1,81 @@
 // dependencies
 import { useState, useEffect } from "react"
-// supabase client
-import { createClient } from "../api/supabase/client"
+// auth hooks
+import { useAuth } from "../auth/hooks/useAuth"
+import { useMagicLink } from "../auth/hooks/useMagicLink"
 
 
 const SignIn = () => {
-    const [loading, setLoading] = useState(false)
+    // hooks
+    const { session, user, handleLogout } = useAuth()
+    const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    // state
     const [email, setEmail] = useState("")
-    const [session, setSession] = useState(null)
-
-    // supabase client init
-    const supabase = createClient()
-    // check URL params on initial render
-    const params = new URLSearchParams(window.location.search)
-    const hasTokenHash = params.get("token_hash")
-
-    const [verifying, setVerifying] = useState(!!hasTokenHash)
-    const [authError, setAuthError] = useState(null)
-    const [authSuccess, setAuthSuccess] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [selectedLoginType, setSelectedLoginType] = useState("magic-link")
 
     useEffect(() => {
-        // Check if we have token_hash in URL (magic link callback)
-        const params = new URLSearchParams(window.location.search)
-        const token_hash = params.get("token_hash")
-        const type = params.get("type")
-
-        if (token_hash) {
-            // Verify the OTP token
-            supabase.auth.verifyOtp({
-                token_hash,
-                type: type || "email",
-            }).then(({ error }) => {
-                if (error) {
-                    setAuthError(error.message)
-                } else {
-                    setAuthSuccess(true)
-                    // clear URL params
-                    window.history.replaceState({}, document.title, "/")
-                }
-                setVerifying(false)
-            })
-        }
-
-        // check for existing session
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session)
-        })
-
-        // listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
-        })
-
-        return () => subscription.unsubscribe()
+        verifyMagicLink()
     }, [])
 
-    const handleLogin = async (event) => {
-        event.preventDefault()
+
+    // idk
+    if (verifying) return <p>Verifying your link...</p>
+    if (user) {
+        return (
+            <div>
+                <h1>Welcome!</h1> 
+                <p>You are logged in as: {session.user.email}</p> 
+                <button onClick={handleLogout}> Sign Out </button>
+            </div>
+        )
+    }
+
+
+    // handle login for selected type
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         setLoading(true)
+        
+        // handle selected
+        if (selectedLoginType === "magic-link") {
+            await sendMagicLink(email)
+            setLoading(false)
 
-        const { error } = await supabase.auth.signInWithOtp({
-            email,
-            options: {
-                emailRedirectTo: window.location.origin,
-            }
-        })
-        if (error) {
-            alert(error.error_description || error.message)
-        } else {
-            alert("check your email for the login link")
+        } else if (selectedLoginType === "github") {
+            // do github login
+            console.log("github login")
+            setLoading(false)
+
+        } else if (selectedLoginType === "email-password") {
+            // do email and password login
+            console.log("email and password login")
+            setLoading(false)
         }
-        setLoading(false)
     }
 
-    const handleLogout = async () => {
-        await supabase.auth.signOut()
-        setSession(null)
-    }
 
-    // show verification state
-    if (verifying) {
-        return (
-            <div>
-                <h1>Authentication</h1>
-                <p>Confirming your magic link...</p>
-                <p>Loading...</p>
-            </div>
-        )
-    }
-
-    // show auth error
-    if (authError) {
-        return (
-            <div>
-                <h1>Authentication</h1>
-                <p>✗ Authentication failed</p>
-                <p>{authError}</p>
-                <button
-                    onClick={() => {
-                        setAuthError(null)
-                        window.history.replaceState({}, document.title, "/")
-                    }}
-                >
-                    Return to login
-                </button>
-            </div>
-        )
-    }
-
-    // show auth success (briefly before session loads)
-    if (authSuccess && !session) {
-        return (
-            <div>
-                <h1>Authentication</h1>
-                <p>✓ Authentication successful!</p>
-                <p>Loading your account...</p>
-            </div>
-        )
-    }
-
-    // if user is logged in, show welcome screen
-    if (session) {
-        return (
-            <div>
-                <h1>Welcome!</h1>
-                <p>You are logged in as: {session.user.email}</p>
-                <button onClick={handleLogout}>
-                    Sign Out
-                </button>
-            </div>
-        )
-    }
-
-    // show login form
     return (
         <div>
-            <h1>Supabase + React</h1>
-            <p>Sign in via magic link with your email below</p>
-            <form onSubmit={handleLogin}>
+            <h1>Sign In</h1>
+            <form onSubmit={handleSubmit}>
                 <input
                     type="email"
-                    placeholder="Your email"
+                    placeholder="Email"
                     value={email}
-                    required={true}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <button disabled={loading}>
-                    {loading ? <span>Loading</span> : <span>Send magic link</span>}
+                    {loading ? "Sending..." : "Send magic link"}
                 </button>
             </form>
+            <button onClick={() => setSelectedLoginType("magic-link")}>Login with Magic Link</button>
+            <button onClick={() => setSelectedLoginType("github")}>Login with Github</button>
+            <button onClick={() => setSelectedLoginType("email-password")}>Login with Email and Password</button>
+            {magicLinkEmailSent && <p>Check your email!</p>}
+            {error && <p>Login Failed: {error}</p>}
         </div>
-    )
+    );
 }
 
 export default SignIn

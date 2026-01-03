@@ -66,7 +66,7 @@ const SignIn = () => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <button disabled={loading}>
-                    {loading ? "Sending..." : "Send magic link"}
+                    {loading ? "Loading..." : "Login"}
                 </button>
             </form>
             <button onClick={() => setSelectedLoginType("magic-link")}>Login with Magic Link</button>

@@ -11,6 +11,16 @@ src/
 │       └── otherAPI.js
 │
 │
+├── auth/
+│   ├── hooks/
+│   │   ├── useAuth.js                  # user/session state + listener
+│   │   ├── useMagicLink.js             # Magic link send + verify logic
+│   │   ├── useGithubLogin.js           # github verification
+│   │   └── useEmailAndPassword.js      # email and password + verify logic
+│   └── providers/
+│       └── AuthProvider.js             # wrapp app for global auth context
+│
+│
 ├── hooks/                          # Custom hooks that wrap query/mutation API calls
 │   └── supabase/
 │       ├── useUsers.js

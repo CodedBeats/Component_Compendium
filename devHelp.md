@@ -62,12 +62,14 @@ src/
 │   │   ├── Dashboard.module.css
 │   │   ├── SignUp.module.css
 │   │   ├── SignIn.module.css
-│   │   ├── ComponentPage.module.css
+│   │   ├── ComponentViewPage.module.css
+│   │   ├── ComponentAddPage.module.css
 │   │   └── ComponentEditPage.module.css
 │   ├── Dashboard.jsx
 │   ├── SignUp.jsx
 │   ├── SignIn.jsx
-│   ├── ComponentPage.jsx           # read :id from router params
+│   ├── ComponentViewPage.jsx           # read :id from router params
+│   ├── ComponentAddPage.jsx            
 │   └── ComponentEditPage.jsx
 │
 │

@@ -59,6 +59,7 @@
 .hideIcon {
     color: #93adc9;
     font-size: 1.1rem;
+    cursor: pointer;
     transition: 0.3s;
 }
 .hideIcon:hover {

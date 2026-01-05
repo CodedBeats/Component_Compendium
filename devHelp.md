@@ -34,9 +34,12 @@ src/
 │
 │
 ├── components/                     # generic UI components (buttons, modals, loaders, inputs, layout shells)
-│   └── Button/
-│       ├── index.jsx
-│       └── Button.module.css
+│   └── buttons/
+│       ├── css/
+│       │   ├── PrimaryBtn.module.css
+│       │   └── SecondaryBtn.module.css
+│       ├── PrimaryBtn.jsx
+│       └── SecondaryBtn.jsx
 │
 │
 ├── features/                               # Feature modules (data + UI together)
@@ -55,10 +58,18 @@ src/
 │
 │
 ├── pages/                          # Route-level pages
+│   ├── css/
+│   │   ├── Dashboard.module.css
+│   │   ├── SignUp.module.css
+│   │   ├── SignIn.module.css
+│   │   ├── ComponentViewPage.module.css
+│   │   ├── ComponentAddPage.module.css
+│   │   └── ComponentEditPage.module.css
 │   ├── Dashboard.jsx
 │   ├── SignUp.jsx
 │   ├── SignIn.jsx
-│   ├── ComponentPage.jsx           # read :id from router params
+│   ├── ComponentViewPage.jsx           # read :id from router params
+│   ├── ComponentAddPage.jsx            
 │   └── ComponentEditPage.jsx
 │
 │

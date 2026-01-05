@@ -3,6 +3,11 @@ import { useState, useEffect } from "react"
 // auth hooks
 import { useAuth } from "../auth/hooks/useAuth"
 import { useMagicLink } from "../auth/hooks/useMagicLink"
+// components
+import { WebsiteTitle } from "../components/titles/WebsiteTitle"
+import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
+// style
+import styles from "./css/SignIn.module.css"
 
 
 const SignIn = () => {
@@ -11,6 +16,9 @@ const SignIn = () => {
     const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
     // state
     const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordVisible, setPasswordVisible] = useState(true)
+    const [rememberMe, setRememberMe] = useState(false)
     const [loading, setLoading] = useState(false)
     const [selectedLoginType, setSelectedLoginType] = useState("magic-link")
 
@@ -56,24 +64,131 @@ const SignIn = () => {
 
 
     return (
-        <div>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <button disabled={loading}>
-                    {loading ? "Loading..." : "Login"}
-                </button>
-            </form>
-            <button onClick={() => setSelectedLoginType("magic-link")}>Login with Magic Link</button>
-            <button onClick={() => setSelectedLoginType("github")}>Login with Github</button>
-            <button onClick={() => setSelectedLoginType("email-password")}>Login with Email and Password</button>
-            {magicLinkEmailSent && <p>Check your email!</p>}
-            {error && <p>Login Failed: {error}</p>}
+        <div className={styles.pageContainer}>
+            {/* sign in content + form container */}
+            <div className={styles.contentContainer}>
+                {/* website title */}
+                <div className={styles.websiteTitleContainer}>
+                    <WebsiteTitle />
+                </div>
+
+                {/* block container */}
+                <div className={styles.blockContainer}>
+                    <h1 className={styles.welcomeBack}>Welcome Back</h1>
+                    <p className={styles.formInstructions}>
+                        Enter your details to access your component library.
+                    </p>
+
+                    {/* form container */}
+                    <form 
+                        className={styles.formContainer}
+                        onSubmit={handleSubmit}
+                    >
+                        <AuthFormInput 
+                            label={"Email"}
+                            type={"email"}
+                            placeholder={"name@example.com"}
+                            value={email}
+                            onChange={(val) => setEmail(val)}
+                        />
+                        <AuthFormPasswordInput 
+                            label={"Password"}
+                            placeholder={"Enter your password"}
+                            isHidden={passwordVisible}
+                            value={password}
+                            onChange={(val) => setPassword(val)}
+                            onToggleHidden={() => setPasswordVisible(v => !v)}
+                        />
+
+                        {/* remember me and forgot password */}
+                        <div className={styles.extra}>
+                            <div className={styles.rememberMeContainer}>
+                                <input 
+                                    className={styles.rememberMeCheckbox}
+                                    type="checkbox" 
+                                    checked={rememberMe} 
+                                    onChange={() => setRememberMe(c => !c)} 
+                                />
+                                <button 
+                                    type="button"
+                                    className={styles.rememberMeText}
+                                    onClick={() => setRememberMe(c => !c)}
+                                >Remember me</button>
+                            </div>
+                            <button 
+                                type="button" 
+                                className={styles.forgotPasswordBtn}
+                                onClick={() => console.log("implement forgot password")}
+                            >Forgot password?</button>
+                        </div>
+                        <button 
+                            className={styles.submitBtn}
+                            disabled={loading}
+                        >
+                            {loading ? "Loading..." : "Sign In"}
+                        </button>
+                    </form>
+
+                    <p className={styles.loginOptionsBreak}>Or contine with</p>
+
+                    <div className={styles.loginOptionsContainer}>
+                        <button 
+                            className={styles.loginOption}
+                            onClick={() => setSelectedLoginType("email-password")}
+                        >
+                            Password
+                        </button>
+                        <button 
+                            className={styles.loginOption}
+                            onClick={() => setSelectedLoginType("magic-link")}
+                        >
+                            Email Link
+                        </button>
+                        <button 
+                            className={styles.loginOption}
+                            onClick={() => setSelectedLoginType("github")}
+                        >
+                            Github
+                        </button>
+                    </div>
+
+                    {/* idk, //TODO fix later */}
+                    <div>
+                        {magicLinkEmailSent && <p>Check your email!</p>}
+                        {error && <p>Login Failed: {error}</p>}
+                    </div>
+
+                    {/* don't have an account */}
+                    <div className={styles.signUpLinkContainer}>
+                        <p className={styles.signUpLinkText}>Don't have an account?</p>
+                        <button
+                            type="button"
+                            className={styles.signUpLink}
+                            onClick={() => console.log("link to sign up page")}
+                        >Sign up for free</button>
+                    </div>
+                </div>
+            </div>
+
+            {/* code block art container */}
+            <div className={styles.artContainer}>
+                <div className={styles.gradientContainer}>
+                    <div className={styles.blueGradient}></div>
+                    <div className={styles.pinkGradient}></div>
+                </div>
+                <div className={styles.artBlockOverlay}>
+                    <div className={styles.artBlockContainer}>
+                        <img 
+                            className={styles.artBlock}
+                            src="https://cdn-icons-png.flaticon.com/512/1049/1049443.png" 
+                            alt="code-block"
+                        />
+                    </div>
+                    <p className={styles.previewTitle}>Preview Live Code</p>
+                    <p className={styles.previewText}>Instant rendering for React, Tailwind, HTML&CSS</p>
+                </div>
+            </div>
+            
         </div>
     );
 }

@@ -1,0 +1,247 @@
+.pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+}
+
+
+/* content */
+.contentContainer {
+    background-color: #111921;
+}
+.websiteTitleContainer {
+    position: absolute;
+}
+.blockContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10%;
+}
+
+/* welcome back */
+.welcomeBack {
+    width: 100%;
+    text-align: start;
+    color: #fff;
+    margin-bottom: 5px;
+}
+.formInstructions {
+    width: 100%;
+    text-align: start;
+    color: #7289a1;
+}
+
+/* form */
+.formContainer {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* remember me and forgot password */
+.extra {
+    display: flex;
+    justify-content: space-between;
+}
+.rememberMeContainer {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.rememberMeCheckbox {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #223445;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    accent-color: #2196F3;
+
+    /* key line to allow custom styling */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    transition: 0.2s;
+}
+.rememberMeCheckbox:hover {
+    border: 1px solid #364d62;
+}
+/* custom checked state */
+.rememberMeCheckbox:checked {
+    background: #2196F3;
+    border-color: #2196F3;
+    position: relative;
+}
+/* optional: draw a checkmark */
+.rememberMeCheckbox:checked::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 3px;
+}
+.rememberMeText {
+    color: #6d8399;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.rememberMeText:hover {
+    color: #89a0b6;
+}
+.forgotPasswordBtn {
+    background: none;
+    border: none;
+    color: #2986e3;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.forgotPasswordBtn:hover {
+    color: #5ea4ea;
+}
+
+/* sign in btn */
+.submitBtn {
+    border: none;
+    border-radius: 5px;
+    background-color: #2b8ced;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.submitBtn:hover {
+    background-color: #4b98e5;
+}
+
+
+/* login with other options */
+.loginOptionsBreak {
+    margin: 20px 0;
+    color: #6e849c;
+}
+.loginOptionsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    gap: 15px;
+}
+.loginOption {
+    text-align: center;
+    border: 2px solid #283d52;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #192633;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.loginOption:hover {
+    border: 2px solid #4c6c8c;
+}
+
+
+/* don't have an account */
+.signUpLinkContainer {
+    display: flex;
+    gap: 2px;
+    margin-top: 30px;
+}
+.signUpLinkText {
+    color: #7d8b9e;    
+    font-weight: bold;
+}
+.signUpLink {
+    background: none;
+    border: none;
+    color: #2986e3;    
+    font-weight: bold;
+    cursor: pointer;
+}
+.signUpLink:hover {
+    color: #5ea4ea;
+}
+
+
+
+
+/* code block art */
+.artContainer {
+    position: relative;
+}
+/* gradients */
+.gradientContainer {
+    background-color: #0a1014;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.blueGradient {
+    width: 70%;
+    height: 50%;
+    background: radial-gradient(#112940, #0a1014);
+    align-self: flex-end;
+}
+.pinkGradient {
+    width: 70%;
+    height: 50%;
+    background: radial-gradient(#361b30, #0a1014);
+    align-self: flex-start;
+}
+/* code block */
+.artBlockOverlay {
+    width: 100%;
+    position: absolute;
+    top: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.artBlockContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 70%;
+    /* frosted glass */
+    background: rgba(175, 175, 175, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* safari support */
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.artBlock {
+    width: 70%;
+}
+/* text below art block */
+.previewTitle {
+    color: white;
+    font-size: 1.4rem;
+    margin-top: 30px;
+    font-weight: bold;
+}
+.previewText {
+    color: rgb(124, 124, 124);
+    font: 1.2rem;
+    margin-top: 10px;
+}

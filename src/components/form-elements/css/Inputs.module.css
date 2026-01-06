@@ -8,6 +8,8 @@
 .authLabel {
     color: white;
     font-weight: bold;
+    font-size: var(--font-base);
+    font-family: var(--font-label);
 }
 .authInput {
     border: 1px solid #283d52;
@@ -15,6 +17,8 @@
     padding: 10px;
     background-color: #192633;
     color: white;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }
 .authInput::placeholder {
     color: #667d94;
@@ -33,10 +37,13 @@
 }
 .passwordAuthInput {
     border: 1px solid #283d52;
+    border-radius: 5px 0 0 5px;
     color: white;
     background: none;
     padding: 10px;
     width: 100%;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }
 .passwordAuthInput::placeholder {
     color: #667d94;

@@ -11,5 +11,6 @@
 }
 .websiteTitle {
     color: white;
-    font-size: 2em;
+    font-size: var(--font-2xl);
+    font-family: var(--font-heading);
 }

@@ -30,12 +30,15 @@
     text-align: start;
     color: #fff;
     margin-bottom: 5px;
-    font-size: 3rem;
+    font-size: var(--font-4xl);
+    font-family: var(--font-heading);
 }
 .formInstructions {
     width: 100%;
     text-align: start;
     color: #7289a1;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }
 
 /* form */
@@ -99,6 +102,8 @@
     background: none;
     cursor: pointer;
     transition: 0.2s;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }
 .rememberMeText:hover {
     color: #89a0b6;
@@ -109,6 +114,8 @@
     color: #2986e3;
     font-weight: bold;
     cursor: pointer;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
     transition: 0.2s;
 }
 .forgotPasswordBtn:hover {
@@ -123,8 +130,8 @@
     color: white;
     padding: 10px 0;
     text-align: center;
-    font-weight: bold;
-    font-size: 1rem;
+    font-size: var(--font-lg);
+    font-family: var(--font-label);
     cursor: pointer;
     transition: 0.2s;
 }
@@ -137,6 +144,8 @@
 .loginOptionsBreak {
     margin: 20px 0;
     color: #6e849c;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }
 .loginOptionsContainer {
     display: grid;
@@ -152,6 +161,8 @@
     background-color: #192633;
     color: white;
     font-weight: bold;
+    font-size: var(--font-base);
+    font-family: var(--font-label);
     cursor: pointer;
     transition: 0.2s;
 }
@@ -164,18 +175,20 @@
 /* don't have an account */
 .signUpLinkContainer {
     display: flex;
-    gap: 2px;
     margin-top: 30px;
 }
 .signUpLinkText {
-    color: #7d8b9e;    
-    font-weight: bold;
+    color: #7d8b9e;   
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }
 .signUpLink {
     background: none;
     border: none;
     color: #2986e3;    
     font-weight: bold;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
     cursor: pointer;
 }
 .signUpLink:hover {
@@ -253,9 +266,13 @@
     font-size: 1.4rem;
     margin-top: 30px;
     font-weight: bold;
+    font-size: var(--font-2xl);
+    font-family: var(--font-heading);
 }
 .previewText {
     color: rgb(124, 124, 124);
     font: 1.2rem;
     margin-top: 10px;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }

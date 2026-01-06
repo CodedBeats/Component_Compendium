@@ -8,8 +8,16 @@ import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
 // style
 import styles from "./css/SignIn.module.css"
+// assets
+import CodeBlock from "../assets/code-blocks/CodeBlock1.png"
+// icons
+import { RiLockPasswordFill } from "react-icons/ri";
+// <RiLockPasswordFill />
+import { MdMarkEmailRead } from "react-icons/md";
+// <MdMarkEmailRead />
+import { FaGithub } from "react-icons/fa";
+// <FaGithub />
 
-import CodeBlock1 from "../asssets/CodeBlock1.png"
 
 
 const SignIn = () => {
@@ -163,6 +171,7 @@ const SignIn = () => {
 
                     {/* login options */}
                     <div className={styles.loginOptionsContainer}>
+                        {/* password */}
                         <button 
                             className={styles.loginOption}
                             style={{
@@ -170,8 +179,10 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("password")}
                         >
-                            Password
+                            <RiLockPasswordFill className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Password</p>
                         </button>
+                        {/* email link */}
                         <button 
                             className={styles.loginOption}
                             style={{
@@ -179,8 +190,10 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("emailLink")}
                         >
-                            Email Link
+                            <MdMarkEmailRead className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Email Link</p>
                         </button>
+                        {/* github */}
                         <button 
                             className={styles.loginOption}
                             style={{
@@ -188,7 +201,8 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("github")}
                         >
-                            Github
+                            <FaGithub className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Github</p>
                         </button>
                     </div>
 
@@ -205,7 +219,9 @@ const SignIn = () => {
                             type="button"
                             className={styles.signUpLink}
                             onClick={() => console.log("link to sign up page")}
-                        >Sign up for free</button>
+                        >
+                            Sign up for free
+                        </button>
                     </div>
                 </div>
             </div>
@@ -219,7 +235,7 @@ const SignIn = () => {
                 <div className={styles.artBlockOverlay}>
                     <img 
                         className={styles.artBlock}
-                        src={CodeBlock1} 
+                        src={CodeBlock} 
                         alt="code-block"
                     />
                     <p className={styles.previewTitle}>Preview Live Code</p>

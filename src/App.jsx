@@ -1,5 +1,7 @@
 // dependencies
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+// style
+import "@/theme/typography.css";
 
 // pages
 import Dashboard from "./pages/Dashboard"

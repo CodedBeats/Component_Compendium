@@ -14,13 +14,19 @@ const SignIn = () => {
     // hooks
     const { session, user, handleLogout } = useAuth()
     const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
-    // state
+    // form stuff
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(true)
+    const [passwordInputVisible, setPassowordStateVisible] = useState(true)
     const [rememberMe, setRememberMe] = useState(false)
+    const [selectedLoginType, setSelectedLoginType] = useState({
+        emailLink: false,
+        password: true,
+        github: false
+    })
+    // loading state
     const [loading, setLoading] = useState(false)
-    const [selectedLoginType, setSelectedLoginType] = useState("magic-link")
 
     useEffect(() => {
         verifyMagicLink()
@@ -39,6 +45,21 @@ const SignIn = () => {
         )
     }
 
+    // handle login type select
+    const handleSelectLoginType = (type) => {
+        // handle github login
+        //
+
+        // hide password field
+        setPassowordStateVisible(v => !v)
+
+        // set state: each line is evaluated if type matches setting true and false
+        setSelectedLoginType({
+            emailLink: type === "emailLink",
+            password: type === "password",
+            github: type === "github"
+        })
+    }
 
     // handle login for selected type
     const handleSubmit = async (e) => {
@@ -91,14 +112,17 @@ const SignIn = () => {
                             value={email}
                             onChange={(val) => setEmail(val)}
                         />
-                        <AuthFormPasswordInput 
-                            label={"Password"}
-                            placeholder={"Enter your password"}
-                            isHidden={passwordVisible}
-                            value={password}
-                            onChange={(val) => setPassword(val)}
-                            onToggleHidden={() => setPasswordVisible(v => !v)}
-                        />
+                        {/* only show passowrd input for asociated login type */}
+                        {passwordInputVisible && (
+                            <AuthFormPasswordInput 
+                                label={"Password"}
+                                placeholder={"Enter your password"}
+                                isHidden={passwordVisible}
+                                value={password}
+                                onChange={(val) => setPassword(val)}
+                                onToggleHidden={() => setPasswordVisible(v => !v)}
+                            />
+                        )}
 
                         {/* remember me and forgot password */}
                         <div className={styles.extra}>
@@ -134,19 +158,28 @@ const SignIn = () => {
                     <div className={styles.loginOptionsContainer}>
                         <button 
                             className={styles.loginOption}
-                            onClick={() => setSelectedLoginType("email-password")}
+                            style={{
+                                border: selectedLoginType.password ? "2px solid #4f6c89ff" : "2px solid #283d52"
+                            }}
+                            onClick={() => handleSelectLoginType("password")}
                         >
                             Password
                         </button>
                         <button 
                             className={styles.loginOption}
-                            onClick={() => setSelectedLoginType("magic-link")}
+                            style={{
+                                border: selectedLoginType.emailLink ? "2px solid #4f6c89ff" : "2px solid #283d52"
+                            }}
+                            onClick={() => handleSelectLoginType("emailLink")}
                         >
                             Email Link
                         </button>
                         <button 
                             className={styles.loginOption}
-                            onClick={() => setSelectedLoginType("github")}
+                            style={{
+                                border: selectedLoginType.github ? "2px solid #4f6c89ff" : "2px solid #283d52"
+                            }}
+                            onClick={() => handleSelectLoginType("github")}
                         >
                             Github
                         </button>

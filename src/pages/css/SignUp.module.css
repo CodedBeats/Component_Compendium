@@ -1,0 +1,297 @@
+.pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    max-height: 100vh;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+
+/* === code block art === */
+.artContainer {
+    position: relative;
+    /* z-index: -1; */
+}
+/* gradients */
+.gradientContainer {
+    background-color: #0a1014;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.blueGradient {
+    width: 70%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(#2f5a83 0%, #0a1014 70%, #0a1014 100%);
+    align-self: flex-end;
+    position: absolute;
+    top: -100px;
+    left: -100px;
+}
+.pinkGradient {
+    width: 70%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(#8a3377 0%, #0a1014 70%, #0a1014 100%);
+    align-self: flex-start;
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+}
+/* code block */
+.artBlockOverlay {
+    width: 100%;
+    position: absolute;
+    top: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.artBlockContainer {
+    width: 70%;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: #1f1f1f;
+    overflow: hidden;
+}
+.artBlock {
+    width: 100%;
+    height: 100%;
+}
+/* visual btn */
+.codeBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    background-color: #1f1f1f;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+.coolBtn {
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: var(--font-label);
+    color: white;
+    background: linear-gradient(90deg, #4f46e5, #9333ea);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.coolBtn:hover {
+    box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5);
+    filter: brightness(1.15);
+}
+.coolBtn:active {
+    transform: scale(0.95);
+}
+
+
+
+
+
+
+/* === content === */
+.contentContainer {
+    background-color: #111921;
+    z-index: 2;
+}
+.websiteTitleContainer {
+    position: absolute;
+}
+.blockContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10%;
+}
+
+/* welcome back */
+.welcomeBack {
+    width: 100%;
+    text-align: start;
+    color: #fff;
+    margin-bottom: 5px;
+    font-size: var(--font-4xl);
+    font-family: var(--font-heading);
+}
+.formInstructions {
+    width: 100%;
+    text-align: start;
+    color: #7289a1;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
+}
+
+/* form */
+.formContainer {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* remember me and forgot password */
+.extra {
+    display: flex;
+    justify-content: space-between;
+}
+.rememberMeContainer {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.rememberMeCheckbox {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #223445;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    accent-color: #2196F3;
+
+    /* key line to allow custom styling */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    transition: 0.2s;
+}
+.rememberMeCheckbox:hover {
+    border: 1px solid #364d62;
+}
+/* custom checked state */
+.rememberMeCheckbox:checked {
+    background: #2196F3;
+    border-color: #2196F3;
+    position: relative;
+}
+/* optional: draw a checkmark */
+.rememberMeCheckbox:checked::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 3px;
+}
+.rememberMeText {
+    color: #6d8399;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
+}
+.rememberMeText:hover {
+    color: #89a0b6;
+}
+.forgotPasswordBtn {
+    background: none;
+    border: none;
+    color: #2986e3;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
+    transition: 0.2s;
+}
+.forgotPasswordBtn:hover {
+    color: #5ea4ea;
+}
+
+/* sign in btn */
+.submitBtn {
+    border: none;
+    border-radius: 5px;
+    background-color: #2b8ced;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: var(--font-lg);
+    font-family: var(--font-label);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.submitBtn:hover {
+    background-color: #4b98e5;
+}
+
+
+/* login with other options */
+.loginOptionsBreak {
+    margin: 20px 0;
+    color: #6e849c;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
+}
+.loginOptionsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    gap: 15px;
+}
+.loginOption {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #283d52;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #192633;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.loginOption:hover {
+    border: 2px solid #4c6c8c;
+    background-color: #2e4256;
+}
+.loginOptionIcon {
+    color: white;
+    font-size: var(--font-lg);
+    font-family: var(--font-label);
+}
+.loginOptionText {
+    color: white;
+    font-size: var(--font-lg);
+    font-family: var(--font-label);
+}
+
+
+/* don't have an account */
+.signUpLinkContainer {
+    display: flex;
+    margin-top: 30px;
+}
+.signUpLinkText {
+    color: #7d8b9e;   
+    font-size: var(--font-base);
+    font-family: var(--font-body);
+}
+.signUpLink {
+    background: none;
+    border: none;
+    color: #2986e3;    
+    font-weight: bold;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
+    cursor: pointer;
+}
+.signUpLink:hover {
+    color: #5ea4ea;
+}
+

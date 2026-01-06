@@ -50,8 +50,12 @@ const SignIn = () => {
         // handle github login
         //
 
-        // hide password field
-        setPassowordStateVisible(v => !v)
+        // only show password field for asociated login type
+        if (type === "password") {
+            setPassowordStateVisible(true)
+        } else {
+            setPassowordStateVisible(false)
+        }
 
         // set state: each line is evaluated if type matches setting true and false
         setSelectedLoginType({

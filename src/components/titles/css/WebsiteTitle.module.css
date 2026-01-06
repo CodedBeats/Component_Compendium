@@ -1,16 +1,28 @@
 .container {
     width: 100%;
-    padding: 3%;
+    padding: 5%;
     display: flex;
     align-items: center;
     gap: 10px;
 }
+.iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #13314f;
+    border: 1px solid #1b6dbe;
+    border-radius: 10px;
+    padding: 5px;
+}
 .websiteIcon {
     color: #2b8ced;
-    font-size: 2em;
+    font-size: var(--font-base);
+    font-family: var(--font-heading);
+    width: 20px;
+    height: 20px;
 }
 .websiteTitle {
     color: white;
-    font-size: var(--font-2xl);
+    font-size: var(--font-base);
     font-family: var(--font-heading);
 }

@@ -73,7 +73,8 @@ src/
 │   └── ComponentEditPage.jsx
 │
 │
-├── styles/                      # Global CSS + resets + themes
+├── theme/                      # Global CSS + resets + themes
+│   ├── typography.css
 │   └── global.css
 │
 │

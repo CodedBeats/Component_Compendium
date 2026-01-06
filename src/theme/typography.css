@@ -8,7 +8,12 @@
     --font-3xl: 1.875rem;
     --font-4xl: 2.25rem;
 
+    /* titles */
     --font-heading: 'Poppins', sans-serif;
-    --font-sans: 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* labels and btns */
+    --font-label: 'Roboto', sans-serif;
+
+    /* text and body */
+    --font-body: 'Inter', sans-serif;
 }

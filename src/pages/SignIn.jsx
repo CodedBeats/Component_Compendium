@@ -1,5 +1,6 @@
 // dependencies
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 // auth hooks
 import { useAuth } from "../auth/hooks/useAuth"
 import { useMagicLink } from "../auth/hooks/useMagicLink"
@@ -12,15 +13,14 @@ import styles from "./css/SignIn.module.css"
 import CodeBlock from "../assets/code-blocks/CodeBlock1.png"
 // icons
 import { RiLockPasswordFill } from "react-icons/ri";
-// <RiLockPasswordFill />
 import { MdMarkEmailRead } from "react-icons/md";
-// <MdMarkEmailRead />
 import { FaGithub } from "react-icons/fa";
-// <FaGithub />
 
 
 
 const SignIn = () => {
+    // navigate
+    const navigate = useNavigate()
     // hooks
     const { session, user, handleLogout } = useAuth()
     const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
@@ -218,7 +218,7 @@ const SignIn = () => {
                         <button
                             type="button"
                             className={styles.signUpLink}
-                            onClick={() => console.log("link to sign up page")}
+                            onClick={() => navigate("/sign-up")}
                         >
                             Sign up for free
                         </button>

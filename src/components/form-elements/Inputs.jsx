@@ -1,5 +1,5 @@
 // incons
-import { FaEyeSlash } from "react-icons/fa";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 // style
 import styles from "./css/Inputs.module.css"
 
@@ -36,9 +36,11 @@ export const AuthFormPasswordInput = ({label, value, placeholder, isHidden, onCh
                     className={styles.toggleHiddenBtn}
                     onClick={onToggleHidden}
                 >
-                    <FaEyeSlash
-                        className={styles.hideIcon} 
-                    />
+                    { isHidden ? (
+                        <FaEyeSlash className={styles.hideIcon} />
+                    ) : (
+                        <FaEye className={styles.hideIcon} />
+                    )}
                 </button>
             </div>
         </div>

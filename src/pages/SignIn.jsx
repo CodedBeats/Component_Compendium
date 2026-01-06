@@ -9,6 +9,8 @@ import { AuthFormInput, AuthFormPasswordInput } from "../components/form-element
 // style
 import styles from "./css/SignIn.module.css"
 
+import CodeBlock1 from "../asssets/CodeBlock1.png"
+
 
 const SignIn = () => {
     // hooks
@@ -159,6 +161,7 @@ const SignIn = () => {
 
                     <p className={styles.loginOptionsBreak}>Or contine with</p>
 
+                    {/* login options */}
                     <div className={styles.loginOptionsContainer}>
                         <button 
                             className={styles.loginOption}
@@ -214,13 +217,11 @@ const SignIn = () => {
                     <div className={styles.pinkGradient}></div>
                 </div>
                 <div className={styles.artBlockOverlay}>
-                    <div className={styles.artBlockContainer}>
-                        <img 
-                            className={styles.artBlock}
-                            src="https://cdn-icons-png.flaticon.com/512/1049/1049443.png" 
-                            alt="code-block"
-                        />
-                    </div>
+                    <img 
+                        className={styles.artBlock}
+                        src={CodeBlock1} 
+                        alt="code-block"
+                    />
                     <p className={styles.previewTitle}>Preview Live Code</p>
                     <p className={styles.previewText}>Instant rendering for React, Tailwind, HTML&CSS</p>
                 </div>

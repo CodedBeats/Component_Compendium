@@ -1,7 +1,10 @@
 .pageContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 
@@ -183,6 +186,7 @@
 /* code block art */
 .artContainer {
     position: relative;
+    z-index: -1;
 }
 /* gradients */
 .gradientContainer {
@@ -197,14 +201,22 @@
 .blueGradient {
     width: 70%;
     height: 50%;
-    background: radial-gradient(#112940, #0a1014);
+    border-radius: 50%;
+    background: radial-gradient(#2f5a83 0%, #0a1014 70%, #0a1014 100%);
     align-self: flex-end;
+    position: absolute;
+    top: -100px;
+    right: -100px;
 }
 .pinkGradient {
     width: 70%;
     height: 50%;
-    background: radial-gradient(#361b30, #0a1014);
+    border-radius: 50%;
+    background: radial-gradient(#8a3377 0%, #0a1014 70%, #0a1014 100%);
     align-self: flex-start;
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
 }
 /* code block */
 .artBlockOverlay {

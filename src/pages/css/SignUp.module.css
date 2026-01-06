@@ -8,9 +8,100 @@
 }
 
 
-/* content */
+/* === code block art === */
+.artContainer {
+    position: relative;
+    /* z-index: -1; */
+}
+/* gradients */
+.gradientContainer {
+    background-color: #0a1014;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.blueGradient {
+    width: 70%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(#2f5a83 0%, #0a1014 70%, #0a1014 100%);
+    align-self: flex-end;
+    position: absolute;
+    top: -100px;
+    left: -100px;
+}
+.pinkGradient {
+    width: 70%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(#8a3377 0%, #0a1014 70%, #0a1014 100%);
+    align-self: flex-start;
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+}
+/* code block */
+.artBlockOverlay {
+    width: 100%;
+    position: absolute;
+    top: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.artBlockContainer {
+    width: 70%;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: #1f1f1f;
+    overflow: hidden;
+}
+.artBlock {
+    width: 100%;
+    height: 100%;
+}
+/* visual btn */
+.codeBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    background-color: #1f1f1f;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+.coolBtn {
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: var(--font-label);
+    color: white;
+    background: linear-gradient(90deg, #4f46e5, #9333ea);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.coolBtn:hover {
+    box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5);
+    filter: brightness(1.15);
+}
+.coolBtn:active {
+    transform: scale(0.95);
+}
+
+
+
+
+
+
+/* === content === */
 .contentContainer {
     background-color: #111921;
+    z-index: 2;
 }
 .websiteTitleContainer {
     position: absolute;
@@ -204,73 +295,3 @@
     color: #5ea4ea;
 }
 
-
-
-
-/* code block art */
-.artContainer {
-    position: relative;
-    z-index: -1;
-}
-/* gradients */
-.gradientContainer {
-    background-color: #0a1014;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-.blueGradient {
-    width: 70%;
-    height: 50%;
-    border-radius: 50%;
-    background: radial-gradient(#2f5a83 0%, #0a1014 70%, #0a1014 100%);
-    align-self: flex-end;
-    position: absolute;
-    top: -100px;
-    right: -100px;
-}
-.pinkGradient {
-    width: 70%;
-    height: 50%;
-    border-radius: 50%;
-    background: radial-gradient(#8a3377 0%, #0a1014 70%, #0a1014 100%);
-    align-self: flex-start;
-    position: absolute;
-    bottom: -100px;
-    left: -100px;
-}
-/* code block */
-.artBlockOverlay {
-    width: 100%;
-    position: absolute;
-    top: 25%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.artBlock {
-    width: 70%;
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-/* text below art block */
-.previewTitle {
-    color: white;
-    font-size: 1.4rem;
-    margin-top: 30px;
-    font-weight: bold;
-    font-size: var(--font-2xl);
-    font-family: var(--font-heading);
-}
-.previewText {
-    color: rgb(124, 124, 124);
-    font: 1.2rem;
-    margin-top: 10px;
-    font-size: var(--font-base);
-    font-family: var(--font-body);
-}

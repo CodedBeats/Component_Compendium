@@ -1,5 +1,6 @@
 // dependencies
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 // auth hooks
 import { useAuth } from "../auth/hooks/useAuth"
 import { useMagicLink } from "../auth/hooks/useMagicLink"
@@ -8,9 +9,18 @@ import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
 // style
 import styles from "./css/SignIn.module.css"
+// assets
+import CodeBlock from "../assets/code-blocks/CodeBlock1.png"
+// icons
+import { RiLockPasswordFill } from "react-icons/ri";
+import { MdMarkEmailRead } from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
+
 
 
 const SignIn = () => {
+    // navigate
+    const navigate = useNavigate()
     // hooks
     const { session, user, handleLogout } = useAuth()
     const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
@@ -159,7 +169,9 @@ const SignIn = () => {
 
                     <p className={styles.loginOptionsBreak}>Or contine with</p>
 
+                    {/* login options */}
                     <div className={styles.loginOptionsContainer}>
+                        {/* password */}
                         <button 
                             className={styles.loginOption}
                             style={{
@@ -167,8 +179,10 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("password")}
                         >
-                            Password
+                            <RiLockPasswordFill className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Password</p>
                         </button>
+                        {/* email link */}
                         <button 
                             className={styles.loginOption}
                             style={{
@@ -176,8 +190,10 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("emailLink")}
                         >
-                            Email Link
+                            <MdMarkEmailRead className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Email Link</p>
                         </button>
+                        {/* github */}
                         <button 
                             className={styles.loginOption}
                             style={{
@@ -185,7 +201,8 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("github")}
                         >
-                            Github
+                            <FaGithub className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Github</p>
                         </button>
                     </div>
 
@@ -201,8 +218,10 @@ const SignIn = () => {
                         <button
                             type="button"
                             className={styles.signUpLink}
-                            onClick={() => console.log("link to sign up page")}
-                        >Sign up for free</button>
+                            onClick={() => navigate("/sign-up")}
+                        >
+                            Sign up for free
+                        </button>
                     </div>
                 </div>
             </div>
@@ -214,13 +233,11 @@ const SignIn = () => {
                     <div className={styles.pinkGradient}></div>
                 </div>
                 <div className={styles.artBlockOverlay}>
-                    <div className={styles.artBlockContainer}>
-                        <img 
-                            className={styles.artBlock}
-                            src="https://cdn-icons-png.flaticon.com/512/1049/1049443.png" 
-                            alt="code-block"
-                        />
-                    </div>
+                    <img 
+                        className={styles.artBlock}
+                        src={CodeBlock} 
+                        alt="code-block"
+                    />
                     <p className={styles.previewTitle}>Preview Live Code</p>
                     <p className={styles.previewText}>Instant rendering for React, Tailwind, HTML&CSS</p>
                 </div>

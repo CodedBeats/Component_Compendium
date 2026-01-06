@@ -1,86 +1,250 @@
 // dependencies
-import { useState } from "react"
-// auth hook
-import { usePasswordAuth } from "../auth/hooks/usePasswordAuth"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+// auth hooks
+import { useAuth } from "../auth/hooks/useAuth"
+import { useMagicLink } from "../auth/hooks/useMagicLink"
+// components
+import { WebsiteTitle } from "../components/titles/WebsiteTitle"
+import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
+// style
+import styles from "./css/SignUp.module.css"
+// assets
+import CodeBlock from "../assets/code-blocks/CodeBlock2.png"
+// icons
+import { RiLockPasswordFill } from "react-icons/ri";
+import { MdMarkEmailRead } from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
+
+
 
 const SignUp = () => {
-    // hook
-    const { signUpWithPassword, error, success } = usePasswordAuth()
-    // state
+    // navigate
+    const navigate = useNavigate()
+    // hooks
+    const { session, user, handleLogout } = useAuth()
+    const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    // form stuff
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [passwordVisible, setPasswordVisible] = useState(true)
+    const [passwordInputVisible, setPassowordStateVisible] = useState(true)
+    const [selectedLoginType, setSelectedLoginType] = useState({
+        emailLink: false,
+        password: true,
+        github: false
+    })
+    // loading state
     const [loading, setLoading] = useState(false)
-    const [selectedSignUpType, setSelectedSignUpType] = useState("email-password")
+
+    useEffect(() => {
+        verifyMagicLink()
+    }, [])
 
 
+    // idk
+    if (verifying) return <p>Verifying your link...</p>
+    if (user) {
+        return (
+            <div>
+                <h1>Welcome!</h1> 
+                <p>You are logged in as: {session.user.email}</p> 
+                <button onClick={handleLogout}> Sign Out </button>
+            </div>
+        )
+    }
+
+    // handle login type select
+    const handleSelectLoginType = (type) => {
+        // handle github login
+        //
+
+        // only show password field for asociated login type
+        if (type === "password") {
+            setPassowordStateVisible(true)
+        } else {
+            setPassowordStateVisible(false)
+        }
+
+        // set state: each line is evaluated if type matches setting true and false
+        setSelectedLoginType({
+            emailLink: type === "emailLink",
+            password: type === "password",
+            github: type === "github"
+        })
+    }
+
+    // handle login for selected type
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
-        setLoading(false)
+        setLoading(true)
         
         // handle selected
-        if (selectedSignUpType === "email-password") {
-            await signUpWithPassword(email, password)
+        if (selectedLoginType === "magic-link") {
+            await sendMagicLink(email)
             setLoading(false)
 
-        } else if (selectedSignUpType === "github") {
-            // do github sign up
+        } else if (selectedLoginType === "github") {
+            // do github login
             console.log("github login")
+            setLoading(false)
+
+        } else if (selectedLoginType === "email-password") {
+            // do email and password login
+            console.log("email and password login")
             setLoading(false)
         }
     }
 
+
     return (
-        <div className="grid place-items-center h-screen">
-            <div className="w-full max-w-sm p-4">
-                <h1 className="text-xl font-medium mb-2">Create an account</h1>
-                <p className="text-sm text-gray-500 mb-4">
-                    Sign up with email and password
-                </p>
+        <div className={styles.pageContainer}>
+            {/* code block art container */}
+            <div className={styles.artContainer}>
+                <div className={styles.gradientContainer}>
+                    <div className={styles.blueGradient}></div>
+                    <div className={styles.pinkGradient}></div>
+                </div>
+                <div className={styles.artBlockOverlay}>
+                    <div className={styles.artBlockContainer}>
+                        <img 
+                            className={styles.artBlock}
+                            src={CodeBlock} 
+                            alt="code-block"
+                        />
+                        <div className={styles.codeBtnContainer}>
+                            <button className={styles.coolBtn}>
+                                Launch
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <form onSubmit={handleSubmit} className="grid gap-3">
-                    <input
-                        className="w-full border rounded-lg p-2 text-sm"
-                        type="email"
-                        placeholder="Email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
 
-                    <input
-                        className="w-full border rounded-lg p-2 text-sm"
-                        type="password"
-                        placeholder="Password"
-                        required
-                        minLength={6}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+            {/* sign in content + form container */}
+            <div className={styles.contentContainer}>
+                {/* website title */}
+                <div className={styles.websiteTitleContainer}>
+                    <WebsiteTitle />
+                </div>
 
-                    <button
-                        className="w-full bg-black text-white rounded-lg p-2 text-sm disabled:opacity-50"
-                        disabled={loading}
-                    >
-                        {loading ? "Signing up..." : "Sign Up"}
-                    </button>
-                </form>
-                <button onClick={() => setSelectedSignUpType("email-password")}>Login with Email and Password</button>
-                <button onClick={() => setSelectedSignUpType("github")}>Login with Github</button>
-
-                {success && (
-                    <p className="text-green-600 text-sm mt-3">
-                        Account created! Check your email to confirm.
+                {/* block container */}
+                <div className={styles.blockContainer}>
+                    <h1 className={styles.welcomeBack}>Start Building</h1>
+                    <p className={styles.formInstructions}>
+                        Join developers curating the best of the frontend.
                     </p>
-                )}
-                {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
 
-                <p className="text-xs text-gray-400 mt-6">
-                    Built for UI collectors who care about code
-                </p>
+                    {/* form container */}
+                    <form 
+                        className={styles.formContainer}
+                        onSubmit={handleSubmit}
+                    >
+                        <AuthFormInput 
+                            label={"Username"}
+                            type={"text"}
+                            placeholder={"Anonymouse"}
+                            value={email}
+                            onChange={(val) => setEmail(val)}
+                        />
+                        <AuthFormInput 
+                            label={"Email"}
+                            type={"email"}
+                            placeholder={"name@example.com"}
+                            value={email}
+                            onChange={(val) => setEmail(val)}
+                        />
+                        {/* only show passowrd input for asociated login type */}
+                        {passwordInputVisible && (
+                            <>
+                            <AuthFormPasswordInput 
+                                label={"Password"}
+                                placeholder={"Enter your password"}
+                                isHidden={passwordVisible}
+                                value={password}
+                                onChange={(val) => setPassword(val)}
+                                onToggleHidden={() => setPasswordVisible(v => !v)}
+                            />
+                            <AuthFormPasswordInput 
+                                label={"Confirm Password"}
+                                placeholder={"•••••••••"}
+                                isHidden={passwordVisible}
+                                value={password}
+                                onChange={(val) => setPassword(val)}
+                                onToggleHidden={() => setPasswordVisible(v => !v)}
+                            />
+                            </>
+                        )}
+
+                        <button 
+                            className={styles.submitBtn}
+                            disabled={loading}
+                        >
+                            {loading ? "Loading..." : "Create Account"}
+                        </button>
+                    </form>
+
+                    <p className={styles.loginOptionsBreak}>Or sign up with</p>
+
+                    {/* login options */}
+                    <div className={styles.loginOptionsContainer}>
+                        {/* password */}
+                        <button 
+                            className={styles.loginOption}
+                            style={{
+                                border: selectedLoginType.password ? "2px solid #4f6c89ff" : "2px solid #283d52"
+                            }}
+                            onClick={() => handleSelectLoginType("password")}
+                        >
+                            <RiLockPasswordFill className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Password</p>
+                        </button>
+                        {/* email link */}
+                        <button 
+                            className={styles.loginOption}
+                            style={{
+                                border: selectedLoginType.emailLink ? "2px solid #4f6c89ff" : "2px solid #283d52"
+                            }}
+                            onClick={() => handleSelectLoginType("emailLink")}
+                        >
+                            <MdMarkEmailRead className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Email Link</p>
+                        </button>
+                        {/* github */}
+                        <button 
+                            className={styles.loginOption}
+                            style={{
+                                border: selectedLoginType.github ? "2px solid #4f6c89ff" : "2px solid #283d52"
+                            }}
+                            onClick={() => handleSelectLoginType("github")}
+                        >
+                            <FaGithub className={styles.loginOptionIcon} />
+                            <p className={styles.loginOptionText}>Github</p>
+                        </button>
+                    </div>
+
+                    {/* idk, //TODO fix later */}
+                    <div>
+                        {magicLinkEmailSent && <p>Check your email!</p>}
+                        {error && <p>Login Failed: {error}</p>}
+                    </div>
+
+                    {/* don't have an account */}
+                    <div className={styles.signUpLinkContainer}>
+                        <p className={styles.signUpLinkText}>Already have an account?</p>
+                        <button
+                            type="button"
+                            className={styles.signUpLink}
+                            onClick={() => navigate("/sign-in")}
+                        >
+                            Sign In
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default SignUp

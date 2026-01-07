@@ -2,11 +2,19 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 // auth hooks
-import { useAuth } from "../auth/hooks/useAuth"
 import { useMagicLink } from "../auth/hooks/useMagicLink"
+import { usePasswordAuth } from "../auth/hooks/usePasswordAuth"
 // components
 import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
+// utils
+import { 
+    validatePassword, 
+    validateEmail, 
+    validateNonEmptyString, 
+    removeBlankHeadAndTail, 
+    checkStringsMatch 
+} from "../utils/stringManipulation"
 // style
 import styles from "./css/SignUp.module.css"
 // assets
@@ -19,14 +27,19 @@ import { PasswordLockIcon, EmailTickIcon, GithubIcon } from "../utils/iconHandle
 const SignUp = () => {
     // navigate
     const navigate = useNavigate()
-    // hooks
-    const { session, user, handleLogout } = useAuth()
-    const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    // auth hooks
+    const { error: magicLinkError, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    const { signUpWithPassword, error: passwordError, success: passwordSuccess } = usePasswordAuth()
     // form stuff
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    })
     const [passwordVisible, setPasswordVisible] = useState(true)
     const [passwordInputVisible, setPassowordStateVisible] = useState(true)
+    const [formFieldsValid, setFormFieldsValid] = useState(false)
     const [selectedLoginType, setSelectedLoginType] = useState({
         emailLink: false,
         password: true,
@@ -34,29 +47,48 @@ const SignUp = () => {
     })
     // loading state
     const [loading, setLoading] = useState(false)
+    // error state stuff
+    const [formError, setFormError] = useState("")
 
     useEffect(() => {
         verifyMagicLink()
     }, [])
 
 
-    // idk
-    if (verifying) return <p>Verifying your link...</p>
-    if (user) {
-        return (
-            <div>
-                <h1>Welcome!</h1> 
-                <p>You are logged in as: {session.user.email}</p> 
-                <button onClick={handleLogout}> Sign Out </button>
-            </div>
-        )
+    // handle update form data 
+    const updateFormData = (field, value) => {
+        // update formData
+        const newData = { ...formData, [field]: value }
+        setFormData(newData)
+
+        // make validation checks against newData
+        const validUsername = validateNonEmptyString(newData.username)
+        const emailIsValid = validateEmail(newData.email)
+        const { passwordError, passwordIsValid } = validatePassword(newData.password)
+        const passwordMatch = checkStringsMatch(newData.password, newData.confirmPassword)
+
+        // update form validity
+        const allValid = 
+            newData.username &&
+            emailIsValid &&
+            passwordIsValid &&
+            passwordMatch
+
+        setFormFieldsValid(allValid)
+
+        // set error
+        if (!validUsername) setFormError("Username can't be empty")
+        else if (!emailIsValid) setFormError("Email is invalid")
+        else if (passwordError) setFormError(passwordError)
+        else if (!passwordMatch) setFormError("Passwords don't match")
+        // clear error
+        else if (formFieldsValid) setFormError("")
+        else setFormError("")
     }
+
 
     // handle login type select
     const handleSelectLoginType = (type) => {
-        // handle github login
-        //
-
         // only show password field for asociated login type
         if (type === "password") {
             setPassowordStateVisible(true)
@@ -72,26 +104,41 @@ const SignUp = () => {
         })
     }
 
+
     // handle login for selected type
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
+        let ok = false
         
-        // handle selected
-        if (selectedLoginType === "magic-link") {
-            await sendMagicLink(email)
-            setLoading(false)
+        // sign up with selected option
+        if (selectedLoginType.emailLink) {
+            // email link login
+            ok = await sendMagicLink(formData.email)
 
-        } else if (selectedLoginType === "github") {
-            // do github login
+        } else if (selectedLoginType.github) {
+            // github login
             console.log("github login")
-            setLoading(false)
 
-        } else if (selectedLoginType === "email-password") {
-            // do email and password login
-            console.log("email and password login")
-            setLoading(false)
+        } else if (selectedLoginType.password) {
+            // email and password login
+            ok = await signUpWithPassword(formData.email, formData.password)
         }
+
+        // create db user if sign up successful
+        if (ok) {
+            // set up user data
+            const newUserData = {
+                username: removeBlankHeadAndTail(formData.username),
+                email: formData.email
+            }
+
+            // create supabase db user
+        }
+
+        // navigate to home
+        setLoading(false)
+        // navigate("/")
     }
 
 
@@ -143,15 +190,15 @@ const SignUp = () => {
                             label={"Username"}
                             type={"text"}
                             placeholder={"Anonymouse"}
-                            value={email}
-                            onChange={(val) => setEmail(val)}
+                            value={formData.username}
+                            onChange={(val) => updateFormData("username", val)}
                         />
                         <AuthFormInput 
                             label={"Email"}
                             type={"email"}
                             placeholder={"name@example.com"}
-                            value={email}
-                            onChange={(val) => setEmail(val)}
+                            value={formData.email}
+                            onChange={(val) => updateFormData("email", val)}
                         />
                         {/* only show passowrd input for asociated login type */}
                         {passwordInputVisible && (
@@ -160,16 +207,16 @@ const SignUp = () => {
                                 label={"Password"}
                                 placeholder={"Enter your password"}
                                 isHidden={passwordVisible}
-                                value={password}
-                                onChange={(val) => setPassword(val)}
+                                value={formData.password}
+                                onChange={(val) => updateFormData("password", val)}
                                 onToggleHidden={() => setPasswordVisible(v => !v)}
                             />
                             <AuthFormPasswordInput 
                                 label={"Confirm Password"}
-                                placeholder={"•••••••••"}
+                                placeholder={"e.g. •••••••••"}
                                 isHidden={passwordVisible}
-                                value={password}
-                                onChange={(val) => setPassword(val)}
+                                value={formData.confirmPassword}
+                                onChange={(val) => updateFormData("confirmPassword", val)}
                                 onToggleHidden={() => setPasswordVisible(v => !v)}
                             />
                             </>
@@ -177,11 +224,24 @@ const SignUp = () => {
 
                         <button 
                             className={styles.submitBtn}
-                            disabled={loading}
+                            disabled={loading || !formFieldsValid}
+                            style={{
+                                backgroundColor: formFieldsValid ? "#2b8ced" : "#022b53ff",
+                                cursor: formFieldsValid ? "pointer" : "default"
+                            }}
                         >
-                            {loading ? "Loading..." : "Create Account"}
+                            { !formFieldsValid
+                                ? "Fill Out Form"
+                                : loading
+                                ? "Loading..."
+                                : "Create Account"
+                            }
                         </button>
                     </form>
+                    {/* form fields error */}
+                    <div className={styles.formError}>
+                        { formError !== "" ? formError : "" }
+                    </div>
 
                     <div className={styles.divider}>
                         <span>Or contine with</span>
@@ -227,7 +287,9 @@ const SignUp = () => {
                     {/* idk, //TODO fix later */}
                     <div>
                         {magicLinkEmailSent && <p>Check your email!</p>}
-                        {error && <p>Login Failed: {error}</p>}
+                        {magicLinkError && <p>Email Link Failed: {magicLinkError}</p>}
+                        {passwordError && <p>Email-Password Sign Up Failed: {passwordError}</p>}
+                        {verifying && <p>Verifying your link...</p>}
                     </div>
 
                     {/* don't have an account */}

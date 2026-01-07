@@ -64,26 +64,33 @@ const SignUp = () => {
         // make validation checks against newData
         const validUsername = validateNonEmptyString(newData.username)
         const emailIsValid = validateEmail(newData.email)
-        const { passwordError, passwordIsValid } = validatePassword(newData.password)
-        const passwordMatch = checkStringsMatch(newData.password, newData.confirmPassword)
 
-        // update form validity
-        const allValid = 
-            newData.username &&
-            emailIsValid &&
-            passwordIsValid &&
-            passwordMatch
+        // base requirements (always checked)
+        let allValid = validUsername && emailIsValid
 
+        // extra password requirements (only if password signup is selected)
+        if (selectedLoginType.password) {
+            const { passwordError, passwordIsValid } = validatePassword(newData.password)
+            const passwordMatch = checkStringsMatch(newData.password, newData.confirmPassword)
+
+            // updated for valid check
+            allValid = allValid && passwordIsValid && passwordMatch
+
+            if (!passwordIsValid) setFormError(passwordError)
+            else if (!passwordMatch) setFormError("Passwords don't match")
+            else setFormError("")
+        }
+        else {
+            // not password mode -> clear password errors & ignore password validity
+            setFormError("")
+        }
+
+        // update state
         setFormFieldsValid(allValid)
 
-        // set error
+        // non-password option error messages
         if (!validUsername) setFormError("Username can't be empty")
         else if (!emailIsValid) setFormError("Email is invalid")
-        else if (passwordError) setFormError(passwordError)
-        else if (!passwordMatch) setFormError("Passwords don't match")
-        // clear error
-        else if (formFieldsValid) setFormError("")
-        else setFormError("")
     }
 
 
@@ -242,6 +249,12 @@ const SignUp = () => {
                     <div className={styles.formError}>
                         { formError !== "" ? formError : "" }
                     </div>
+                    <div className={styles.formSubmissionResponse}>
+                        { magicLinkEmailSent && `Check your email!`}
+                        { magicLinkError && `Email Link Failed: ${magicLinkError}`}
+                        { passwordError && `Email-Password Sign Up Failed: ${passwordError}`}
+                        { verifying && `Verifying your link...`}
+                    </div>
 
                     <div className={styles.divider}>
                         <span>Or contine with</span>
@@ -282,14 +295,6 @@ const SignUp = () => {
                             <GithubIcon className={styles.loginOptionIcon} />
                             <p className={styles.loginOptionText}>Github</p>
                         </button>
-                    </div>
-
-                    {/* idk, //TODO fix later */}
-                    <div>
-                        {magicLinkEmailSent && <p>Check your email!</p>}
-                        {magicLinkError && <p>Email Link Failed: {magicLinkError}</p>}
-                        {passwordError && <p>Email-Password Sign Up Failed: {passwordError}</p>}
-                        {verifying && <p>Verifying your link...</p>}
                     </div>
 
                     {/* don't have an account */}

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 // auth hooks
 import { useAuth } from "../auth/hooks/useAuth"
 import { useMagicLink } from "../auth/hooks/useMagicLink"
+import { usePasswordAuth } from "../auth/hooks/usePasswordAuth"
 // components
 import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
@@ -19,9 +20,10 @@ import { PasswordLockIcon, EmailTickIcon, GithubIcon } from "../utils/iconHandle
 const SignIn = () => {
     // navigate
     const navigate = useNavigate()
-    // hooks
+    // auth hooks
     const { session, user, handleLogout } = useAuth()
-    const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    const { error: magicLinkError, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    const { signInWithPassword, error: passwordError, success: passwordSuccess } = usePasswordAuth()
     // form stuff
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -55,9 +57,6 @@ const SignIn = () => {
 
     // handle login type select
     const handleSelectLoginType = (type) => {
-        // handle github login
-        //
-
         // only show password field for asociated login type
         if (type === "password") {
             setPassowordStateVisible(true)
@@ -80,18 +79,20 @@ const SignIn = () => {
         
         // handle selected
         if (selectedLoginType === "magic-link") {
+            // email link login
             await sendMagicLink(email)
             setLoading(false)
 
         } else if (selectedLoginType === "github") {
-            // do github login
+            // github login
             console.log("github login")
             setLoading(false)
 
         } else if (selectedLoginType === "email-password") {
-            // do email and password login
-            console.log("email and password login")
+            // email and password login
+            await signInWithPassword(email, password)
             setLoading(false)
+            if (passwordSuccess) navigate("/")
         }
     }
 
@@ -209,7 +210,8 @@ const SignIn = () => {
                     {/* idk, //TODO fix later */}
                     <div>
                         {magicLinkEmailSent && <p>Check your email!</p>}
-                        {error && <p>Login Failed: {error}</p>}
+                        {magicLinkError && <p>Magic Link Login Failed: {magicLinkError}</p>}
+                        {passwordError && <p>Email-Password Login Failed: {passwordError}</p>}
                     </div>
 
                     {/* don't have an account */}

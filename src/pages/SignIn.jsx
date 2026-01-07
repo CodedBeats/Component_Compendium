@@ -12,9 +12,7 @@ import styles from "./css/SignIn.module.css"
 // assets
 import CodeBlock from "../assets/code-blocks/CodeBlock1.png"
 // icons
-import { RiLockPasswordFill } from "react-icons/ri";
-import { MdMarkEmailRead } from "react-icons/md";
-import { FaGithub } from "react-icons/fa";
+import { PasswordLockIcon, EmailTickIcon, GithubIcon } from "../utils/iconHandler"
 
 
 
@@ -179,7 +177,7 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("password")}
                         >
-                            <RiLockPasswordFill className={styles.loginOptionIcon} />
+                            <PasswordLockIcon className={styles.loginOptionIcon} />
                             <p className={styles.loginOptionText}>Password</p>
                         </button>
                         {/* email link */}
@@ -190,7 +188,7 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("emailLink")}
                         >
-                            <MdMarkEmailRead className={styles.loginOptionIcon} />
+                            <EmailTickIcon className={styles.loginOptionIcon} />
                             <p className={styles.loginOptionText}>Email Link</p>
                         </button>
                         {/* github */}
@@ -201,7 +199,7 @@ const SignIn = () => {
                             }}
                             onClick={() => handleSelectLoginType("github")}
                         >
-                            <FaGithub className={styles.loginOptionIcon} />
+                            <GithubIcon className={styles.loginOptionIcon} />
                             <p className={styles.loginOptionText}>Github</p>
                         </button>
                     </div>

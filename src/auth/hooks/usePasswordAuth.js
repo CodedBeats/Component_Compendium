@@ -12,14 +12,29 @@ export const usePasswordAuth = () => {
         setError(null)
         setSuccess(false)
 
-        const { error } = await supabase.auth.signUp({
-            email,
-            password,
-        })
+        const { error } = await supabase.auth.signUp({ email, password })
 
-        if (error) setError(error.message)
-        else setSuccess(true)
+        if (error) {
+            setError(error.message)
+            return false
+        }
+        setSuccess(true)
+        return true
     }
 
-    return { signUpWithPassword, error, success }
+    const signInWithPassword = async (email, password) => {
+        setError(null)
+        setSuccess(false)
+
+        const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+        if (error) {
+            setError(error.message)
+            return false
+        }
+        setSuccess(true)
+        return true
+    }
+
+    return { signUpWithPassword, signInWithPassword, error, success }
 }

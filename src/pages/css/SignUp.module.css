@@ -232,11 +232,24 @@
 
 
 /* login with other options */
-.loginOptionsBreak {
+.divider {
+    width: 100%;
     margin: 20px 0;
+    display: flex;
+    align-items: center;
     color: #6e849c;
     font-size: var(--font-base);
     font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    gap: 12px; /* space between text and lines */
+}
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #374151; /* line color */
 }
 .loginOptionsContainer {
     display: grid;

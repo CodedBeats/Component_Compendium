@@ -2,11 +2,16 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 // auth hooks
-import { useAuth } from "../auth/hooks/useAuth"
 import { useMagicLink } from "../auth/hooks/useMagicLink"
+import { usePasswordAuth } from "../auth/hooks/usePasswordAuth"
 // components
 import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
+// utils
+import { 
+    validatePassword, 
+    validateEmail
+} from "../utils/stringManipulation"
 // style
 import styles from "./css/SignIn.module.css"
 // assets
@@ -19,15 +24,18 @@ import { PasswordLockIcon, EmailTickIcon, GithubIcon } from "../utils/iconHandle
 const SignIn = () => {
     // navigate
     const navigate = useNavigate()
-    // hooks
-    const { session, user, handleLogout } = useAuth()
-    const { error, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    // auth hooks
+    const { error: magicLinkError, magicLinkEmailSent, verifying, sendMagicLink, verifyMagicLink } = useMagicLink()
+    const { signInWithPassword, error: passwordError, success: passwordSuccess } = usePasswordAuth()
     // form stuff
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    })
     const [passwordVisible, setPasswordVisible] = useState(true)
-    const [passwordInputVisible, setPassowordStateVisible] = useState(true)
+    const [passwordInputVisible, setPassowordInputVisible] = useState(true)
     const [rememberMe, setRememberMe] = useState(false)
+    const [formFieldsValid, setFormFieldsValid] = useState(false)
     const [selectedLoginType, setSelectedLoginType] = useState({
         emailLink: false,
         password: true,
@@ -35,34 +43,53 @@ const SignIn = () => {
     })
     // loading state
     const [loading, setLoading] = useState(false)
+    // error state stuff
+    const [formError, setFormError] = useState("")
+
 
     useEffect(() => {
         verifyMagicLink()
     }, [])
 
 
-    // idk
-    if (verifying) return <p>Verifying your link...</p>
-    if (user) {
-        return (
-            <div>
-                <h1>Welcome!</h1> 
-                <p>You are logged in as: {session.user.email}</p> 
-                <button onClick={handleLogout}> Sign Out </button>
-            </div>
-        )
+    // handle update form data 
+    const updateFormData = (field, value) => {
+        // update formData
+        const newData = { ...formData, [field]: value }
+        setFormData(newData)
+
+        // make validation checks against newData
+        const emailIsValid = validateEmail(newData.email)
+        const { passwordError, passwordIsValid } = validatePassword(newData.password)
+        
+        // base check all fields valid
+        let allValid = emailIsValid 
+
+        if (selectedLoginType.password) {
+            // check password if login type asociated
+            allValid = allValid && passwordIsValid
+            // set error
+            if (!emailIsValid) setFormError("Email is invalid")
+            else if (!passwordIsValid) setFormError(passwordError)
+            else setFormError("")
+
+        } else {
+            // set error
+            if (!emailIsValid) setFormError("Email is invalid")
+            else setFormError("")
+        }
+        // update state
+        setFormFieldsValid(allValid)
     }
+
 
     // handle login type select
     const handleSelectLoginType = (type) => {
-        // handle github login
-        //
-
         // only show password field for asociated login type
         if (type === "password") {
-            setPassowordStateVisible(true)
+            setPassowordInputVisible(true)
         } else {
-            setPassowordStateVisible(false)
+            setPassowordInputVisible(false)
         }
 
         // set state: each line is evaluated if type matches setting true and false
@@ -71,6 +98,9 @@ const SignIn = () => {
             password: type === "password",
             github: type === "github"
         })
+
+        // reset form error
+        setFormError("")
     }
 
     // handle login for selected type
@@ -80,19 +110,25 @@ const SignIn = () => {
         
         // handle selected
         if (selectedLoginType === "magic-link") {
-            await sendMagicLink(email)
+            // email link login
+            await sendMagicLink(formData.email)
             setLoading(false)
 
         } else if (selectedLoginType === "github") {
-            // do github login
+            // github login
             console.log("github login")
             setLoading(false)
 
         } else if (selectedLoginType === "email-password") {
-            // do email and password login
-            console.log("email and password login")
+            // email and password login
+            await signInWithPassword(formData.email, formData.password)
             setLoading(false)
+            if (passwordSuccess) navigate("/")
         }
+
+        // navigate to home
+        setLoading(false)
+        navigate("/")
     }
 
 
@@ -121,8 +157,8 @@ const SignIn = () => {
                             label={"Email"}
                             type={"email"}
                             placeholder={"name@example.com"}
-                            value={email}
-                            onChange={(val) => setEmail(val)}
+                            value={formData.email}
+                            onChange={(val) => updateFormData("email", val)}
                         />
                         {/* only show passowrd input for asociated login type */}
                         {passwordInputVisible && (
@@ -130,8 +166,8 @@ const SignIn = () => {
                                 label={"Password"}
                                 placeholder={"Enter your password"}
                                 isHidden={passwordVisible}
-                                value={password}
-                                onChange={(val) => setPassword(val)}
+                                value={formData.password}
+                                onChange={(val) => updateFormData("password", val)}
                                 onToggleHidden={() => setPasswordVisible(v => !v)}
                             />
                         )}
@@ -159,11 +195,27 @@ const SignIn = () => {
                         </div>
                         <button 
                             className={styles.submitBtn}
-                            disabled={loading}
+                            disabled={loading || !formFieldsValid}
+                            style={{
+                                backgroundColor: formFieldsValid ? "#2b8ced" : "#022b53ff",
+                                cursor: formFieldsValid ? "pointer" : "default"
+                            }}
                         >
-                            {loading ? "Loading..." : "Sign In"}
+                            { !formFieldsValid
+                                ? "Fill Out Form"
+                                : loading
+                                ? "Loading..."
+                                : "Sign In"
+                            }
                         </button>
                     </form>
+                    {/* form fields error */}
+                    <div className={styles.formError}>
+                        { formError !== "" ? formError : "" }
+                    </div>
+                    <div className={styles.formSubmissionResponse}>
+                        { verifying ? "Email Sent" : "" }
+                    </div>
                     
                     <div className={styles.divider}>
                         <span>Or contine with</span>
@@ -209,7 +261,8 @@ const SignIn = () => {
                     {/* idk, //TODO fix later */}
                     <div>
                         {magicLinkEmailSent && <p>Check your email!</p>}
-                        {error && <p>Login Failed: {error}</p>}
+                        {magicLinkError && <p>Magic Link Login Failed: {magicLinkError}</p>}
+                        {passwordError && <p>Email-Password Login Failed: {passwordError}</p>}
                     </div>
 
                     {/* don't have an account */}

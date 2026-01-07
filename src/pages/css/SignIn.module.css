@@ -122,6 +122,14 @@
     color: #5ea4ea;
 }
 
+/* form error info */
+.formError {
+    margin-top: 10px;
+    color: rgb(247, 115, 115);
+    font-size: var(--font-sm);
+    font-family: var(--font-body);
+}
+
 /* sign in btn */
 .submitBtn {
     border: none;
@@ -136,7 +144,14 @@
     transition: 0.2s;
 }
 .submitBtn:hover {
-    background-color: #4b98e5;
+    background-color: #0452ab !important;
+}
+
+/* info for success or errors after form submission */
+.formSubmissionResponse {
+    color: #56b4eb;
+    font-size: var(--font-base);
+    font-family: var(--font-body);
 }
 
 

@@ -9,6 +9,7 @@ export const AuthFormInput = ({label, type, value, placeholder, onChange}) => {
             <p className={styles.authLabel}>{label}</p>
             <input
                 className={styles.authInput}
+                required={true}
                 type={type}
                 placeholder={placeholder}
                 value={value}
@@ -26,6 +27,7 @@ export const AuthFormPasswordInput = ({label, value, placeholder, isHidden, onCh
             <div className={styles.passwordInputContainer}>
                 <input
                     className={styles.passwordAuthInput}
+                    required={true}
                     type={isHidden ? "password" : "text"}
                     placeholder={placeholder}
                     value={value}

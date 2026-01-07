@@ -164,8 +164,10 @@ const SignIn = () => {
                             {loading ? "Loading..." : "Sign In"}
                         </button>
                     </form>
-
-                    <p className={styles.loginOptionsBreak}>Or contine with</p>
+                    
+                    <div className={styles.divider}>
+                        <span>Or contine with</span>
+                    </div>
 
                     {/* login options */}
                     <div className={styles.loginOptionsContainer}>

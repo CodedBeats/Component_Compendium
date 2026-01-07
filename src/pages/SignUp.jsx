@@ -183,7 +183,9 @@ const SignUp = () => {
                         </button>
                     </form>
 
-                    <p className={styles.loginOptionsBreak}>Or sign up with</p>
+                    <div className={styles.divider}>
+                        <span>Or contine with</span>
+                    </div>
 
                     {/* login options */}
                     <div className={styles.loginOptionsContainer}>

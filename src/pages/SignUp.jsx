@@ -147,7 +147,7 @@ const SignUp = () => {
 
         // navigate to home
         setLoading(false)
-        // navigate("/")
+        navigate("/")
     }
 
 

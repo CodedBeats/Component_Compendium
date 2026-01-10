@@ -1,13 +1,21 @@
+// dependencies
 import { useEffect, useState } from "react"
+// context
 import { AuthContext } from "./AuthContext"
+// supabase
 import { createClient } from "../api/supabase/client"
+import { getUserRowByAuthId } from "../../api/supabase/user"
+
 
 export const AuthProvider = ({ children }) => {
     const supabase = createClient()
 
-    // statte
+    // suth statte
     const [user, setUser] = useState(null)
     const [session, setSession] = useState(null)
+    // user data state
+    const [userProfile, setUserProfile] = useState(null)
+    // other state
     const [loading, setLoading] = useState(true)
 
 
@@ -24,12 +32,24 @@ export const AuthProvider = ({ children }) => {
 
         init()
 
+        // fetch user db data and store in state
+        const fetchProfile = async (userId) => {
+            const userData = getUserRowByAuthId(userId)
+            setUserProfile(userData)
+        }
         
         // listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            // and update state
+            // and update auth state
             setSession(session)
             setUser(session?.user ?? null)
+
+            // then data state
+            if (session?.user) {
+                fetchProfile(session.user.id)
+            } else {
+                setUser(null)
+            }
         })
 
         return () => subscription.unsubscribe()
@@ -50,6 +70,7 @@ export const AuthProvider = ({ children }) => {
             value={{
                 user,
                 session,
+                userProfile,
                 loading,
                 isAuthenticated: !!user,
                 signOut,

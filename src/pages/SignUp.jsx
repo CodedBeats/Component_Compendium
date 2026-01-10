@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 // supabase client
 import { createClient } from "../api/supabase/client"
 // supabase db api 
-import { createUserRow } from "../api/supabase/users"
+import { createUserRow } from "../api/supabase/user"
 // components
 import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"

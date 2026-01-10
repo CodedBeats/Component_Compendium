@@ -1,9 +1,9 @@
 // dependencies
 import { useEffect, useState } from "react"
 // context
-import { AuthContext } from "./AuthContext"
+import { AuthContext } from "../../context/AuthContext"
 // supabase
-import { createClient } from "../api/supabase/client"
+import { createClient } from "../../api/supabase/client"
 import { getUserRowByAuthId } from "../../api/supabase/user"
 
 

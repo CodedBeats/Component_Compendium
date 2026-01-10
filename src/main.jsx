@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 // app
 import App from "./App.jsx";
 // context
-import { AuthProvider } from "./context/AuthContext.jsx";
+import { AuthProvider } from "./auth/providers/AuthProvider.jsx";
 // global style
 import "./index.css";
 

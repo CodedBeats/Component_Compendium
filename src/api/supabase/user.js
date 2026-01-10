@@ -1,6 +1,13 @@
 // supabase client
 import { createClient } from "./client"
 
+/**
+ * Create a row in the User table in supabase DB
+ * @param {string} username - one or multiple words
+ * @param {string} email - varified email address
+ * @param {string} authUserId - the UID of the newly created auth user
+ * @returns 
+ */
 export const createUserRow = async ({ username, email, authUserId }) => {
     const supabase = createClient()
 
@@ -23,6 +30,12 @@ export const createUserRow = async ({ username, email, authUserId }) => {
     return { data }
 }
 
+
+/**
+ * Fetch a row from the User table in supabase DB
+ * @param {string} authUserId - the UID of the auth user
+ * @returns user row data, or null if there was an error
+ */
 export const getUserRowByAuthId = async (authUserId) => {
     const supabase = createClient()
     const { data, error } = await supabase

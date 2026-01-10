@@ -7,7 +7,7 @@ export const PublicOnlyRoute = ({ children }) => {
     const { loading, isAuthenticated } = useAuth()
 
     if (loading) return null
-    if (isAuthenticated) return <Navigate to="/dashboard" replace />
+    if (isAuthenticated) return <Navigate to="/" replace />
 
     return children
 }

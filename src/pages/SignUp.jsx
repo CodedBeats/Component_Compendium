@@ -54,9 +54,9 @@ const SignUp = () => {
     const [formError, setFormError] = useState("")
 
     
-    // redirect when sign in successful (and user becomes authenticated)
+    // redirect to dashboard when sign up successful (and user becomes authenticated)
     useAuthRedirect({
-        whenAuthenticated: "/dashboard",
+        whenAuthenticated: "/",
     })
 
 

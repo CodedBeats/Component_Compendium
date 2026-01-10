@@ -47,9 +47,9 @@ const SignIn = () => {
     // error state stuff
     const [formError, setFormError] = useState("")
 
-    // redirect when sign in successful (and user becomes authenticated)
+    // redirect to dashboard when sign in successful (and user becomes authenticated)
     useAuthRedirect({
-        whenAuthenticated: "/dashboard",
+        whenAuthenticated: "/",
     })
 
     useEffect(() => {
@@ -114,17 +114,17 @@ const SignIn = () => {
         setLoading(true)
         
         // handle selected
-        if (selectedLoginType === "magic-link") {
+        if (selectedLoginType.emailLink) {
             // email link login
             await sendMagicLink(formData.email)
             setLoading(false)
 
-        } else if (selectedLoginType === "github") {
+        } else if (selectedLoginType.github) {
             // github login
             console.log("github login")
             setLoading(false)
 
-        } else if (selectedLoginType === "email-password") {
+        } else if (selectedLoginType.password) {
             // email and password login
             await signInWithPassword(formData.email, formData.password)
             setLoading(false)
@@ -259,8 +259,8 @@ const SignIn = () => {
                         </button>
                     </div>
 
-                    {/* idk, //TODO fix later */}
-                    <div>
+                    {/* sign in error (or tell you to check your email */}
+                    <div className={styles.loginError}>
                         {magicLinkEmailSent && <p>Check your email!</p>}
                         {magicLinkError && <p>Magic Link Login Failed: {magicLinkError}</p>}
                         {passwordError && <p>Email-Password Login Failed: {passwordError}</p>}

@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
         // fetch user db data and store in state
         const fetchProfile = async (userId) => {
-            const userData = getUserRowByAuthId(userId)
+            const userData = await getUserRowByAuthId(userId)
             setUserProfile(userData)
         }
         

@@ -1,13 +1,13 @@
 // dependencies
 import { Navigate } from "react-router-dom"
-// context
-import { useAuth } from "../../context/AuthContext"
+// hook
+import { useAuth } from "../hooks/useAuth"
 
 export const PublicOnlyRoute = ({ children }) => {
     const { loading, isAuthenticated } = useAuth()
 
     if (loading) return null
-    if (isAuthenticated) return <Navigate to="/dashboard" replace />
+    if (isAuthenticated) return <Navigate to="/" replace />
 
     return children
 }

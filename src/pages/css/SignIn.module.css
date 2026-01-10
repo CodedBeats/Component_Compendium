@@ -208,6 +208,14 @@
     font-family: var(--font-label);
 }
 
+/* sign in error (or tell you to check your email */
+.loginError {
+    margin-top: 20px;
+    color: rgb(247, 115, 115);
+    font-size: var(--font-sm);
+    font-family: var(--font-body);
+}
+
 
 /* don't have an account */
 .signUpLinkContainer {

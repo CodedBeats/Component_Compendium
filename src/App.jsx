@@ -25,14 +25,14 @@ const App = () => {
 
                 {/* unauthenticated only routes | auth */}
                 <Route path="/sign-in" element = {
-                    <ProtectedRoute>
+                    <PublicOnlyRoute>
                         <SignIn />
-                    </ProtectedRoute>
+                    </PublicOnlyRoute>
                 } />
                 <Route path="/sign-up" element = {
-                    <ProtectedRoute>
+                    <PublicOnlyRoute>
                         <SignUp />
-                    </ProtectedRoute>
+                    </PublicOnlyRoute>
                 } />
             </Routes>
         </Router>

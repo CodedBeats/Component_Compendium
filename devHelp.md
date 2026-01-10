@@ -14,6 +14,7 @@ src/
 ├── auth/
 │   ├── hooks/
 │   │   ├── useAuth.js                  # user/session state + listener
+│   │   ├── useAuthRedirect.js          # handler for redirection from auth changes
 │   │   ├── useMagicLink.js             # Magic link send + verify logic
 │   │   ├── useGithubLogin.js           # github verification
 │   │   └── usePasswordAuth.js          # email and password

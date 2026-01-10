@@ -8,7 +8,7 @@ import { createUserRow } from "../api/supabase/user"
 // hooks
 import { useAuthRedirect } from "../auth/hooks/useAuthRedirect"
 // components
-import { WebsiteTitle } from "../components/titles/WebsiteTitle"
+import { WebsiteTitle } from "../components/nav/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
 // utils
 import { 

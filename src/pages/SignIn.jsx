@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 // auth hooks
 import { useMagicLink } from "../auth/hooks/useMagicLink"
 import { usePasswordAuth } from "../auth/hooks/usePasswordAuth"
+import { useAuthRedirect } from "../auth/hooks/useAuthRedirect"
 // components
 import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
@@ -46,6 +47,10 @@ const SignIn = () => {
     // error state stuff
     const [formError, setFormError] = useState("")
 
+    // redirect when sign in successful (and user becomes authenticated)
+    useAuthRedirect({
+        whenAuthenticated: "/dashboard",
+    })
 
     useEffect(() => {
         verifyMagicLink()
@@ -123,12 +128,8 @@ const SignIn = () => {
             // email and password login
             await signInWithPassword(formData.email, formData.password)
             setLoading(false)
-            if (passwordSuccess) navigate("/")
+            if (passwordSuccess) console.log("password login successful...now what?")
         }
-
-        // navigate to home
-        setLoading(false)
-        navigate("/")
     }
 
 

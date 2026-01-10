@@ -2,19 +2,18 @@
 import { useState, useEffect } from "react"
 // auth context
 import { useAuth } from "../auth/hooks/useAuth"
+// components
+import { Navbar } from "../components/nav/Navbar"
+// style
+import styles from "./css/Dashboard.module.css"
 
 
 const Dashboard = () => {
-    // auth
-    const { userProfile, signOut } = useAuth()
 
     return (
-        <div>
+        <div className={styles.pageContainer}>
+            <Navbar />
             <div>
-                Username: {userProfile?.username}
-            </div>
-            <div>
-                <button onClick={signOut}>Sign Out</button>
             </div>
         </div>
     )

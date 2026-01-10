@@ -1,6 +1,6 @@
 // import icons
 import { RiLockPasswordFill as PasswordLockIcon } from "react-icons/ri";
-import { MdMarkEmailRead as EmailTickIcon } from "react-icons/md";
+import { MdMarkEmailRead as EmailTickIcon, MdLogout as LogoutIcon } from "react-icons/md";
 import { RxComponent1 as ComponentIcon } from "react-icons/rx";
 import { 
     FaGithub as GithubIcon, 
@@ -12,6 +12,7 @@ import {
 export {
     PasswordLockIcon,
     EmailTickIcon,
+    LogoutIcon,
     GithubIcon,
     EeyeSlashIcon,
     EyeIcon,

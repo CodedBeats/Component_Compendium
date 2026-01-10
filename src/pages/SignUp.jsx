@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom"
 // supabase client
 import { createClient } from "../api/supabase/client"
 // supabase db api 
-import { createUserRow } from "../api/supabase/users"
+import { createUserRow } from "../api/supabase/user"
+// hooks
+import { useAuthRedirect } from "../auth/hooks/useAuthRedirect"
 // components
 import { WebsiteTitle } from "../components/titles/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
@@ -50,6 +52,12 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false)
     // error state stuff
     const [formError, setFormError] = useState("")
+
+    
+    // redirect when sign in successful (and user becomes authenticated)
+    useAuthRedirect({
+        whenAuthenticated: "/dashboard",
+    })
 
 
     // handle update form data 
@@ -145,9 +153,8 @@ const SignUp = () => {
             }
         }
 
-        // navigate to home
+        // loading done
         setLoading(false)
-        navigate("/")
     }
 
 

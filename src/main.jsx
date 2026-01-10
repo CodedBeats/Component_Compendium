@@ -4,14 +4,18 @@ import { createRoot } from "react-dom/client";
 // app
 import App from "./App.jsx";
 // context
-import { AuthProvider } from "./context/AuthContext.jsx";
+import { AuthProvider } from "./auth/providers/AuthProvider.jsx";
+// boundries
+import { AuthBoundry } from "./auth/boundries/AuthBoundry.jsx";
 // global style
 import "./index.css";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <AuthProvider>
-            <App />
+            <AuthBoundry>
+                <App />
+            </AuthBoundry>
         </AuthProvider>
     </StrictMode>
 );

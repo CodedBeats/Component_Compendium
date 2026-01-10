@@ -14,11 +14,20 @@ src/
 ├── auth/
 │   ├── hooks/
 │   │   ├── useAuth.js                  # user/session state + listener
+│   │   ├── useAuthRedirect.js          # handler for redirection from auth changes
 │   │   ├── useMagicLink.js             # Magic link send + verify logic
 │   │   ├── useGithubLogin.js           # github verification
-│   │   └── usePasswordAuth.js              # email and password
+│   │   └── usePasswordAuth.js          # email and password
+│   │
 │   └── providers/
-│       └── AuthProvider.js             # wrapp app for global auth context
+│   │   └── AuthProvider.js             # wrapp app for global auth context
+│   │
+│   └── boundries/                      # block rendering until auth is ready
+│   │   └── AuthBoundary.js             
+│   │
+│   └── routes/                         # route gards and navigation enforcement
+│       ├── ProtectedRoute.js           
+│       └── PublicOnlyRoute.js            
 │
 │
 ├── hooks/                          # Custom hooks that wrap query/mutation API calls

@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 // style
 import "./theme/typography.css";
 
+// route handlers
+import { ProtectedRoute } from "./auth/routes/ProtectedRoute";
+import { PublicOnlyRoute } from "./auth/routes/PublicOnlyRoute";
 // pages
 import Dashboard from "./pages/Dashboard"
 import SignIn from "./pages/SignIn"
@@ -13,11 +16,24 @@ const App = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Dashboard />} />
+                {/* protected routes */}
+                <Route path="/" element = {
+                    <ProtectedRoute>
+                        <Dashboard />
+                    </ProtectedRoute>
+                } />
 
-                {/* auth */}
-                <Route path="/sign-in" element={<SignIn />} />
-                <Route path="/sign-up" element={<SignUp />} />
+                {/* unauthenticated only routes | auth */}
+                <Route path="/sign-in" element = {
+                    <ProtectedRoute>
+                        <SignIn />
+                    </ProtectedRoute>
+                } />
+                <Route path="/sign-up" element = {
+                    <ProtectedRoute>
+                        <SignUp />
+                    </ProtectedRoute>
+                } />
             </Routes>
         </Router>
     )

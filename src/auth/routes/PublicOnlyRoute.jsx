@@ -1,7 +1,7 @@
 // dependencies
 import { Navigate } from "react-router-dom"
-// context
-import { useAuth } from "../../context/AuthContext"
+// hook
+import { useAuth } from "../hooks/useAuth"
 
 export const PublicOnlyRoute = ({ children }) => {
     const { loading, isAuthenticated } = useAuth()

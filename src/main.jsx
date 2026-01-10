@@ -6,7 +6,7 @@ import App from "./App.jsx";
 // context
 import { AuthProvider } from "./auth/providers/AuthProvider.jsx";
 // boundries
-import { AuthBoundry } from "./auth/boundries/AuthBoundry.js";
+import { AuthBoundry } from "./auth/boundries/AuthBoundry.jsx";
 // global style
 import "./index.css";
 

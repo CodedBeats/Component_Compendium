@@ -2,7 +2,7 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 // context
-import { useAuth } from "../context/useAuth"
+import { useAuth } from "../hooks/useAuth"
 
 // handler for auth flow decisions
 export const useAuthRedirect = ({ whenAuthenticated, whenUnauthenticated }) => {

@@ -5,7 +5,8 @@ import { RxComponent1 as ComponentIcon } from "react-icons/rx";
 import { 
     FaGithub as GithubIcon, 
     FaEyeSlash as EeyeSlashIcon,
-    FaEye as EyeIcon
+    FaEye as EyeIcon,
+    FaSearch as SearchIcon
 } from "react-icons/fa";
 
 // export icons
@@ -16,5 +17,6 @@ export {
     GithubIcon,
     EeyeSlashIcon,
     EyeIcon,
-    ComponentIcon
+    ComponentIcon,
+    SearchIcon
 }

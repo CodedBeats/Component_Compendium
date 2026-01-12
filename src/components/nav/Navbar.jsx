@@ -4,6 +4,8 @@ import { useState } from "react"
 import { ComponentIcon, LogoutIcon } from "../../utils/iconHandler.js"
 // auth context
 import { useAuth } from "../../auth/hooks/useAuth.js"
+// components
+import { Search } from "../form-elements/Search.jsx"
 // assets
 import femaleAvatar from "../../assets/avatar/female_avatar.png"
 // style
@@ -37,7 +39,7 @@ export const Navbar = () => {
 
             {/* search your components */}
             <div className={styles.searchContainer}>
-                Search box go brrrrrrrrrrrrrrrrrrr
+                <Search />
             </div>
 
             {/* user img, name, dropdown settings */}

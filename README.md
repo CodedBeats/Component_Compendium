@@ -35,7 +35,7 @@ It’s a visual inspiration board mixed with a practical code vault, built to ma
 | Frontend     | React (Vite)                                 |
 | Auth         | Supabase Auth                                |
 | Database     | Supabase Postgres                            |
-| Code Preview | Sandpack (React) + iframe sandbox (HTML/CSS) |
+| Code Preview | Sandpack (React) |
 | Hosting      | Vercel                                       |
 | Tooling      | Git, GitHub, VS Code                         |
 

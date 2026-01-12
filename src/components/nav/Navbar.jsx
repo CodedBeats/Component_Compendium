@@ -37,18 +37,20 @@ export const Navbar = () => {
 
             {/* search your components */}
             <div className={styles.searchContainer}>
-                Search box go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+                Search box go brrrrrrrrrrrrrrrrrrr
             </div>
 
             {/* user img, name, dropdown settings */}
             <div className={styles.userContainer}>
-                <img className={styles.avatarImg} src={femaleAvatar} alt="female_avatar" />
                 <div className={styles.username}>{userProfile?.username}</div>
+
+                {/* avatar img and dropdown */}
                 <div className={styles.dropdownAndBtnContainer}>
                     <button 
                         className={styles.dropdownBtn}
                         onClick={toggleDropdown}
                     >
+                        <img className={styles.avatarImg} src={femaleAvatar} alt="female_avatar" />
                         <svg className={styles.downArrow} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                         </svg>

@@ -8,6 +8,7 @@ import { useAuthRedirect } from "../auth/hooks/useAuthRedirect"
 // components
 import { WebsiteTitle } from "../components/nav/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
+import { FormSubmitBtn } from "../components/buttons/FormSubmitBtn"
 // utils
 import { 
     validatePassword, 
@@ -194,21 +195,11 @@ const SignIn = () => {
                                 onClick={() => console.log("implement forgot password")}
                             >Forgot password?</button>
                         </div>
-                        <button 
-                            className={styles.submitBtn}
-                            disabled={loading || !formFieldsValid}
-                            style={{
-                                backgroundColor: formFieldsValid ? "#2b8ced" : "#022b53ff",
-                                cursor: formFieldsValid ? "pointer" : "default"
-                            }}
-                        >
-                            { !formFieldsValid
-                                ? "Fill Out Form"
-                                : loading
-                                ? "Loading..."
-                                : "Sign In"
-                            }
-                        </button>
+                        <FormSubmitBtn 
+                            loading={loading} 
+                            formFieldsValid={formFieldsValid} 
+                            submitMsg={"Sign In"}
+                        />
                     </form>
                     {/* form fields error */}
                     <div className={styles.formError}>

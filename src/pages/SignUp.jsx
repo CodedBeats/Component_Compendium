@@ -10,6 +10,7 @@ import { useAuthRedirect } from "../auth/hooks/useAuthRedirect"
 // components
 import { WebsiteTitle } from "../components/nav/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
+import { FormSubmitBtn } from "../components/buttons/FormSubmitBtn"
 // utils
 import { 
     validatePassword, 
@@ -238,21 +239,11 @@ const SignUp = () => {
                             </>
                         )}
 
-                        <button 
-                            className={styles.submitBtn}
-                            disabled={loading || !formFieldsValid}
-                            style={{
-                                backgroundColor: formFieldsValid ? "#2b8ced" : "#022b53ff",
-                                cursor: formFieldsValid ? "pointer" : "default"
-                            }}
-                        >
-                            { !formFieldsValid
-                                ? "Fill Out Form"
-                                : loading
-                                ? "Loading..."
-                                : "Create Account"
-                            }
-                        </button>
+                        <FormSubmitBtn 
+                            loading={loading} 
+                            formFieldsValid={formFieldsValid} 
+                            submitMsg={"Create Account"}
+                        />
                     </form>
                     {/* form fields error */}
                     <div className={styles.formError}>

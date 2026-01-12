@@ -58,7 +58,7 @@ const SignUp = () => {
     
     // redirect to dashboard when sign up successful (and user becomes authenticated)
     useAuthRedirect({
-        whenAuthenticated: "/",
+        whenAuthenticated: "/dashboard",
     })
 
 

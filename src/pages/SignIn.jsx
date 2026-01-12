@@ -51,7 +51,7 @@ const SignIn = () => {
 
     // redirect to dashboard when sign in successful (and user becomes authenticated)
     useAuthRedirect({
-        whenAuthenticated: "/",
+        whenAuthenticated: "/dashboard",
     })
 
     useEffect(() => {

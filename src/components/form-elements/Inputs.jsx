@@ -1,5 +1,5 @@
 // incons
-import { EeyeSlashIcon, EyeIcon } from "../../utils/iconHandler";
+import { EeyeSlashIcon, EyeIcon, SearchIcon } from "../../utils/iconHandler"
 // style
 import styles from "./css/Inputs.module.css"
 
@@ -48,3 +48,23 @@ export const AuthFormPasswordInput = ({label, value, placeholder, isHidden, onCh
         </div>
     );
 };
+
+
+export const SearchFormInput = ({value, onChange}) => {
+    return (
+        <div className={styles.searchInputContainer}>
+            <div className={styles.searchIconContainer}>
+                <SearchIcon className={styles.searchIcon} />
+            </div>
+            <div className={styles.inputContainer}>
+                <input 
+                    className={styles.searchInput}
+                    required={true}
+                    placeholder={"Search components..."}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                />
+            </div>
+        </div>
+    )
+}

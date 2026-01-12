@@ -1,4 +1,4 @@
-/* auth form */
+/* ===== auth form ===== */
 .authLabelInputContainer {
     width: 100%;
     display: flex;
@@ -27,7 +27,8 @@
     border-color: #2b8ced;
 }
 
-/* passowrd specific */
+
+/* ===== passowrd specific ===== */
 .passwordInputContainer {
     border-radius: 5px;
     background-color: #192633;
@@ -53,7 +54,7 @@
 }
 .toggleHiddenBtn {
     background: none;
-    border: 1px solid #283d52;
+    border: 2px solid #283d52;
     border-left: 0;
     display: flex;
     align-items: center;
@@ -70,4 +71,52 @@
 }
 .hideIcon:hover {
     color: #b7d0eb;
+}
+
+
+/* ===== passowrd specific ===== */
+.searchInputContainer {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: 100%;
+    background-color: #233647;
+    border: 1px solid #283d52;
+    border-radius: 10px;
+}
+.searchIconContainer {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchIcon {
+    color: #9bb6d4;
+    font-size: var(--font-2xl);
+    font-family: var(--font-label);
+}
+.inputContainer {
+    flex: 1;
+}
+.searchInput {
+    height: 100%;
+    width: 100%;
+    padding: 0 10px;
+    border: none;
+    box-sizing: border-box;
+    border: 1px solid #283d52;
+    border-radius: 0 5px 5px 0;
+    background-color: #233647;
+    color: white;
+    font-size: var(--font-xl);
+    font-family: var(--font-label);
+}
+.searchInput::placeholder {
+    color: #9bb6d4;
+    font-size: var(--font-xl);
+    font-family: var(--font-label);
+}
+.searchInput:focus {
+    outline: none;
+    border-color: #2b8ced;
 }

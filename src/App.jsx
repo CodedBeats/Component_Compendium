@@ -23,6 +23,16 @@ const App = () => {
                     </ProtectedRoute>
                 } />
 
+                {/* 
+                    Planned routes
+                    /components
+                    /components/:componentID
+                    /components/add
+                    /components/edit/:componentID
+                    /categories
+                    /categories/:categoryID
+                */}
+
                 {/* unauthenticated only routes | auth */}
                 <Route path="/sign-in" element = {
                     <PublicOnlyRoute>

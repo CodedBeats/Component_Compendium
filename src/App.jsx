@@ -10,6 +10,7 @@ import { PublicOnlyRoute } from "./auth/routes/PublicOnlyRoute";
 import Dashboard from "./pages/Dashboard"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
+import { Test } from "./pages/Test";
 
 
 const App = () => {
@@ -17,11 +18,27 @@ const App = () => {
         <Router>
             <Routes>
                 {/* protected routes */}
-                <Route path="/" element = {
+                <Route path="/dashboard" element = {
                     <ProtectedRoute>
                         <Dashboard />
                     </ProtectedRoute>
                 } />
+                {/* temp */}
+                <Route path="/dashboard/testPage/exampleComponent" element = {
+                    <ProtectedRoute>
+                        <Test />
+                    </ProtectedRoute>
+                } />
+
+                {/* 
+                    Planned routes
+                    /components
+                    /components/:componentID
+                    /components/add
+                    /components/edit/:componentID
+                    /categories
+                    /categories/:categoryID
+                */}
 
                 {/* unauthenticated only routes | auth */}
                 <Route path="/sign-in" element = {

@@ -1,0 +1,15 @@
+.submitBtn {
+    border: none;
+    border-radius: 5px;
+    background-color: #2b8ced;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: var(--font-lg);
+    font-family: var(--font-label);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.submitBtn:hover {
+    background-color: #0452ab !important;
+}

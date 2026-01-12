@@ -49,7 +49,7 @@ export const validateNonEmptyString = (input) => {
 }
 
 
-// cleanup input text (remove empty space)
+
 /**
  * remove start and end blank spaces from string
  * @param {string} input - input string
@@ -60,7 +60,7 @@ export const removeBlankHeadAndTail = (input) => {
 }
 
 
-// validate 2 strings match
+
 /**
  * check if input2 matches against input1
  * @param {string} input1 - input password string
@@ -71,4 +71,14 @@ export const checkStringsMatch = (input1, input2) => {
     let doesMatch = false
     input1 === input2 ? doesMatch = true : doesMatch = false 
     return doesMatch
+}
+
+
+/**
+ * capitalise the first letter for a string
+ * @param {string} input 
+ * @returns input with the first letter capitilised
+ */
+export const capitiliseFirstLetter = (input) => {
+    return input.charAt(0).toUpperCase() + input.slice(1);
 }

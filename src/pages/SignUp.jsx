@@ -10,6 +10,8 @@ import { useAuthRedirect } from "../auth/hooks/useAuthRedirect"
 // components
 import { WebsiteTitle } from "../components/nav/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
+import { FormSubmitBtn } from "../components/buttons/FormSubmitBtn"
+import { FormOptionBtn } from "../components/buttons/FormOptionBtn"
 // utils
 import { 
     validatePassword, 
@@ -56,7 +58,7 @@ const SignUp = () => {
     
     // redirect to dashboard when sign up successful (and user becomes authenticated)
     useAuthRedirect({
-        whenAuthenticated: "/",
+        whenAuthenticated: "/dashboard",
     })
 
 
@@ -238,21 +240,11 @@ const SignUp = () => {
                             </>
                         )}
 
-                        <button 
-                            className={styles.submitBtn}
-                            disabled={loading || !formFieldsValid}
-                            style={{
-                                backgroundColor: formFieldsValid ? "#2b8ced" : "#022b53ff",
-                                cursor: formFieldsValid ? "pointer" : "default"
-                            }}
-                        >
-                            { !formFieldsValid
-                                ? "Fill Out Form"
-                                : loading
-                                ? "Loading..."
-                                : "Create Account"
-                            }
-                        </button>
+                        <FormSubmitBtn 
+                            loading={loading} 
+                            formFieldsValid={formFieldsValid} 
+                            submitMsg={"Create Account"}
+                        />
                     </form>
                     {/* form fields error */}
                     <div className={styles.formError}>
@@ -266,27 +258,17 @@ const SignUp = () => {
                     {/* sign up options */}
                     <div className={styles.loginOptionsContainer}>
                         {/* password */}
-                        <button 
-                            className={styles.loginOption}
-                            style={{
-                                border: selectedLoginType.password ? "2px solid #4f6c89ff" : "2px solid #283d52"
-                            }}
-                            onClick={() => handleSelectLoginType("password")}
-                        >
-                            <PasswordLockIcon className={styles.loginOptionIcon} />
-                            <p className={styles.loginOptionText}>Password</p>
-                        </button>
+                        <FormOptionBtn 
+                            selectedLoginType={selectedLoginType.password}
+                            handleSelect={() => handleSelectLoginType("password")}
+                            icon={<PasswordLockIcon className={styles.loginOptionIcon} />}
+                        />
                         {/* github */}
-                        <button 
-                            className={styles.loginOption}
-                            style={{
-                                border: selectedLoginType.github ? "2px solid #4f6c89ff" : "2px solid #283d52"
-                            }}
-                            onClick={() => handleSelectLoginType("github")}
-                        >
-                            <GithubIcon className={styles.loginOptionIcon} />
-                            <p className={styles.loginOptionText}>Github</p>
-                        </button>
+                        <FormOptionBtn 
+                            selectedLoginType={selectedLoginType.github}
+                            handleSelect={() => handleSelectLoginType("github")}
+                            icon={<GithubIcon className={styles.loginOptionIcon} />}
+                        />
                     </div>
 
                     {/* don't have an account */}

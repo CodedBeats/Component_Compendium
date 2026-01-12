@@ -92,7 +92,7 @@
 }
 .searchIcon {
     color: #9bb6d4;
-    font-size: var(--font-2xl);
+    font-size: var(--font-xl);
     font-family: var(--font-label);
 }
 .inputContainer {
@@ -108,12 +108,12 @@
     border-radius: 0 5px 5px 0;
     background-color: #233647;
     color: white;
-    font-size: var(--font-xl);
+    font-size: var(--font-lg);
     font-family: var(--font-label);
 }
 .searchInput::placeholder {
     color: #9bb6d4;
-    font-size: var(--font-xl);
+    font-size: var(--font-lg);
     font-family: var(--font-label);
 }
 .searchInput:focus {

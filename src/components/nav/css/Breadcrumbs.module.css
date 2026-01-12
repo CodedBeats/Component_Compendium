@@ -1,0 +1,87 @@
+.breadcrumbs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    backdrop-filter: blur(12px);
+    border-radius: 0 0 8px 0;
+}
+
+.crumbArrow {
+    margin: 0 4px;
+    font-weight: bold;
+    font-size: var(--font-base);
+    font-family: var(--font-heading);
+    color: #8ca5bf;
+}
+.icon {
+    margin-top: 2px;
+    font-size: var(--font-base);
+    font-family: var(--font-heading);
+}
+.homeCrumb {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: bold;
+    gap: 5px;
+}
+.homeCrumbText {
+    font-weight: bold;
+    font-size: var(--font-base);
+    font-family: var(--font-label);
+}
+
+.crumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding-left: 5px;
+}
+.crumbText {
+    font-size: var(--font-base);
+    font-family: var(--font-label);
+    color: #8ca5bf;
+}
+.fianlSegment {
+    font-size: var(--font-base);
+    font-family: var(--font-label);
+    color: #3b93ea;
+    font-weight: 600;
+}
+
+/* link */
+.crumbLink a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    padding: 3px 0;
+    font-size: var(--font-base);
+    font-family: var(--font-label);
+    transition: 0.2s ease;
+}
+.crumbLink a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(
+            to right,
+            #0c347f,
+            #56bdf4
+        );
+    bottom: 0;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .3s ease-in-out;
+}
+.crumbLink a:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}

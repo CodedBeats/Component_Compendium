@@ -15,7 +15,7 @@ export const FormSubmitBtn = ({ loading, formFieldsValid, submitMsg}) => {
                 ? "Fill Out Form"
                 : loading
                 ? "Loading..."
-                : {submitMsg}
+                : submitMsg
             }
         </button>
     );

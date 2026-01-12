@@ -6,7 +6,7 @@ import { useMagicLink } from "../auth/hooks/useMagicLink"
 import { usePasswordAuth } from "../auth/hooks/usePasswordAuth"
 import { useAuthRedirect } from "../auth/hooks/useAuthRedirect"
 // components
-import { WebsiteTitle } from "../components/titles/WebsiteTitle"
+import { WebsiteTitle } from "../components/nav/WebsiteTitle"
 import { AuthFormInput, AuthFormPasswordInput } from "../components/form-elements/Inputs"
 // utils
 import { 

@@ -12,7 +12,7 @@ export const Search = () => {
         e.preventDefault()
         
         const newQuery = searchQuery
-        console.log(`run query with "${newQuery}"`)
+        console.log(`run search query with "${newQuery}"`)
     }
 
 

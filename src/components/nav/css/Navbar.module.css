@@ -63,7 +63,7 @@
     padding: 5px 10px;
 }
 .username {
-    font-size: var(--font-xl);
+    font-size: var(--font-lg);
     font-family: var(--font-label);
     color: white;
 }

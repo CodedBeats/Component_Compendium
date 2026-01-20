@@ -11,7 +11,7 @@ import styles from './css/ComponentAddPage.module.css'
     name: string
     description: string
     componentCategoryId: number
-    tags: string[]                  // max length enforced in UI
+    tags: string[]                  // max length per tag enforced in UI
     codeVariants: Array<{
         variant_type: string
         code: string

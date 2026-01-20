@@ -47,3 +47,81 @@ export const getUserRowByAuthId = async (authUserId) => {
     return error ? null : data
 };
 
+
+
+/**
+ * @typedef {Object} UserFabouriteCategoriesWithCountsData
+ * @property {number} user_id
+ * @property {number} category_id
+ * @property {string} category_name
+ * @property {number} component_count
+ */
+/**
+ * get all the user's favoutite categories
+ * @param {number} userId - the ID of the db user
+ * @returns {UserFabouriteCategoriesWithCountsData}
+ */
+export const getUserFavouriteCategories = async (userId) => {
+    const supabase = createClient()
+
+    const { data, error } = await supabase
+        .from("user_favourite_category_counts")
+        .select("*")
+        .eq("user_id", userId)
+        .order("category_name")
+
+    return error ? [] : data
+}
+
+
+/**
+ * toggle a category being a favourite of the user
+ * @param {number} userId - the ID of the db user
+ * @param {number} categoryId - the ID of the db category
+ * @param {boolean} isFavourite - whether the category IS or IS NOT favoutited
+ */
+export const toggleFavouriteCategory = async (userId, categoryId, isFavourite) => {
+    const supabase = createClient()
+
+    if (isFavourite) {
+        return supabase
+            .from("UserFavouriteCategories")
+            .delete()
+            .eq("user_id", userId)
+            .eq("component_category_id", categoryId)
+    }
+
+    return supabase.from("UserFavouriteCategories").insert({
+        user_id: userId,
+        component_category_id: categoryId,
+    })
+}
+
+
+/**
+ * @typedef {Object} UserAllCategoriesWithCountsData
+ * @property {number} user_id
+ * @property {number} category_id
+ * @property {string} category_name
+ * @property {number} component_count
+ */
+/**
+ * get all categories that the user has components in
+ * @param {number} userId - the ID of the db user
+ * @returns {UserAllCategoriesWithCountsData}
+ */
+export const getUserCategoriesWithCounts = async (userId) => {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+      .from("user_category_counts")
+      .select("*")
+      .eq("user_id", userId)
+      .order("category_name")
+
+  return error ? [] : data
+}
+
+
+
+

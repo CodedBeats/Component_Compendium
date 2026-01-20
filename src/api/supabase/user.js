@@ -74,5 +74,29 @@ export const getUserFavouriteCategories = async (userId) => {
 }
 
 
+/**
+ * toggle a category being a favourite of the user
+ * @param {number} userId - the ID of the db user
+ * @param {number} categoryId - the ID of the db category
+ * @param {boolean} isFavourite - whether the category IS or IS NOT favoutited
+ */
+export const toggleFavouriteCategory = async (userId, categoryId, isFavourite) => {
+    const supabase = createClient()
+
+    if (isFavourite) {
+        return supabase
+            .from("UserFavouriteCategories")
+            .delete()
+            .eq("user_id", userId)
+            .eq("component_category_id", categoryId)
+    }
+
+    return supabase.from("UserFavouriteCategories").insert({
+        user_id: userId,
+        component_category_id: categoryId,
+    })
+}
+
+
 
 

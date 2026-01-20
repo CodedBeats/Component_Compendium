@@ -42,3 +42,9 @@ It’s a visual inspiration board mixed with a practical code vault, built to ma
 
 ## Live Website
 _Coming soon_
+
+## AI in this Project
+AI was only used in the making of this ReadMe. I have turned off my AI autocomplete in my editor for this project (to help drill the basics into my brain)
+Just look through the code if you don't believe me.
+I have terrible spelling, weird variable/component names, and a unique coding style definitely befiting of a junior developer.
+I am doing projects like these to improve my skills and build something I (and hopefully others) will find useful. 

@@ -3,3 +3,61 @@
     color: white;
     background-color: #101821;
 }
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3em 2em;
+    gap: 1.5rem;
+}
+
+/* header text */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.welcomeText {
+    font-size: var(--font-3xl);
+    font-family: var(--font-heading);
+    color: white;
+    font-weight: 550;
+}
+.componentCountText {
+    margin-top: 0.5rem;
+    font-size: var(--font-lg);
+    font-family: var(--font-body);
+    color: #99b4d1;
+}
+.compCatLink {
+    color: #3b93ea;
+    font-size: var(--font-lg);
+    font-family: var(--font-label);
+    font-weight: bold;
+    text-decoration: none;
+    padding-right: 6px;
+    transition: 0.2s;
+}
+.compCatLink:hover {
+    color: #5fa1e3;
+    text-decoration: underline;
+}
+/* new component btn */
+.btnContainer {
+    
+}
+.newComponentBtn {
+    padding: 12px 25px;
+    border-radius: 10px;
+    border: 2px solid #3b93ea;
+    background-color: #3b93ea;
+    color: white;
+    font-size: var(--font-base);
+    font-family: var(--font-label);
+    transition: 0.2s;
+}
+.newComponentBtn:hover {
+    cursor: pointer;
+    background-color: #257cd2;
+    border: 2px solid #2dc6f0;
+}

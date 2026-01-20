@@ -82,3 +82,35 @@ export const checkStringsMatch = (input1, input2) => {
 export const capitiliseFirstLetter = (input) => {
     return input.charAt(0).toUpperCase() + input.slice(1);
 }
+
+
+/**
+ * validate component fields
+ * @param {string} name - inputted name
+ * @param {text[]} tags - array of tags
+ * @param {Array<Object>} codeVariants - array of code variant objects: {variant_type, code}
+ */
+export const validateComponentInput = ({ name, tags, codeVariants }) => {
+    // name required
+    if (!name?.trim()) {
+        throw new Error("Component name is required")
+    }
+
+    // component can only have 5 tags
+    if (tags?.length > 5) {
+        throw new Error("Maximum 5 tags allowed")
+    }
+
+    // component needs at least 1 code variant
+    if (!codeVariants?.length) {
+        throw new Error("At least one code variant is required")
+    }
+
+    // each selected variant must include some code
+    codeVariants.forEach((variant, i) => {
+        if (!variant.code?.trim()) {
+            throw new Error(`Code variant ${i + 1} is empty`)
+        }
+    })
+}
+

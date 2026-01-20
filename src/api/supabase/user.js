@@ -98,5 +98,30 @@ export const toggleFavouriteCategory = async (userId, categoryId, isFavourite) =
 }
 
 
+/**
+ * @typedef {Object} UserAllCategoriesWithCountsData
+ * @property {number} user_id
+ * @property {number} category_id
+ * @property {string} category_name
+ * @property {number} component_count
+ */
+/**
+ * get all categories that the user has components in
+ * @param {number} userId - the ID of the db user
+ * @returns {UserAllCategoriesWithCountsData}
+ */
+export const getUserCategoriesWithCounts = async (userId) => {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+      .from("user_category_counts")
+      .select("*")
+      .eq("user_id", userId)
+      .order("category_name")
+
+  return error ? [] : data
+}
+
+
 
 

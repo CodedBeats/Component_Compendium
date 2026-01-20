@@ -3,6 +3,11 @@ import { createClient } from "./client"
 // types for jsdoc
 import "../../types/user"
 
+
+// ====================================================== //
+// ======================= CREATE ======================= //
+// ====================================================== //
+
 /**
  * Create a row in the User table in supabase DB
  * @param {string} username - one or multiple words
@@ -33,6 +38,11 @@ export const createUserRow = async ({ username, email, authUserId }) => {
 }
 
 
+
+// ====================================================== //
+// ======================= READ ========================= //
+// ====================================================== //
+
 /**
  * Fetch a row from the User table in supabase DB
  * @param {string} authUserId - the UID of the auth user
@@ -48,8 +58,6 @@ export const getUserRowByAuthId = async (authUserId) => {
 
     return error ? null : data
 };
-
-
 
 
 /**
@@ -69,6 +77,29 @@ export const getUserFavouriteCategories = async (userId) => {
     return error ? [] : data
 }
 
+
+/**
+ * get all categories that the user has components in
+ * @param {number} userId - the ID of the db user
+ * @returns {UserAllCategoriesWithCountsData}
+ */
+export const getUserCategoriesWithCounts = async (userId) => {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+      .from("user_category_counts")
+      .select("*")
+      .eq("user_id", userId)
+      .order("category_name")
+
+  return error ? [] : data
+}
+
+
+
+// ====================================================== //
+// ======================= UPDATE ======================= //
+// ====================================================== //
 
 /**
  * toggle a category being a favourite of the user
@@ -95,23 +126,8 @@ export const toggleFavouriteCategory = async (userId, categoryId, isFavourite) =
 
 
 
-/**
- * get all categories that the user has components in
- * @param {number} userId - the ID of the db user
- * @returns {UserAllCategoriesWithCountsData}
- */
-export const getUserCategoriesWithCounts = async (userId) => {
-  const supabase = createClient()
+// ====================================================== //
+// ======================= DELETE ======================= //
+// ====================================================== //
 
-  const { data, error } = await supabase
-      .from("user_category_counts")
-      .select("*")
-      .eq("user_id", userId)
-      .order("category_name")
-
-  return error ? [] : data
-}
-
-
-
-
+//

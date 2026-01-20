@@ -47,3 +47,32 @@ export const getUserRowByAuthId = async (authUserId) => {
     return error ? null : data
 };
 
+
+
+/**
+ * @typedef {Object} UserFabouriteCategoriesWithCountsData
+ * @property {number} user_id
+ * @property {number} category_id
+ * @property {string} category_name
+ * @property {number} component_count
+ */
+/**
+ * get all the user's favoutite categories
+ * @param {number} userId - the ID of the db user
+ * @returns {UserFabouriteCategoriesWithCountsData}
+ */
+export const getUserFavouriteCategories = async (userId) => {
+    const supabase = createClient()
+
+    const { data, error } = await supabase
+        .from("user_favourite_category_counts")
+        .select("*")
+        .eq("user_id", userId)
+        .order("category_name")
+
+    return error ? [] : data
+}
+
+
+
+

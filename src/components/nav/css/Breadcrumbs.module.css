@@ -2,7 +2,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px;
     backdrop-filter: blur(12px);
     border-radius: 0 0 8px 0;
 }

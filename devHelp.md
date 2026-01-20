@@ -53,16 +53,22 @@ src/
 │
 ├── features/                               # Feature modules (data + UI together)
 │   └── components/
-│       ├── ComponentView/                  # UI specific to the components feature
+│       ├── ComponentView/                  # UI and feature specific to just viewing a component
 │       │   ├── index.jsx
 │       │   └── ComponentView.module.css
-│       └── ComponentEdit/               
+│       │
+│       ├── ComponentAdd/                   # UI and feature specific to just adding a component
+│       │   ├── index.jsx
+│       │   └── ComponentView.module.css
+│       │   └── useComponentAdd.js          # extracted add component logic
+│       │
+│       └── ComponentEdit/                  # UI and feature specific to just editing a component               
 │           ├── index.jsx
 │           ├── ComponentEdit.module.css
-│           └── useComponentEdit.js         # (Extracted UI component logic)
+│           └── useComponentEdit.js         # extracted edit component logic
 │
 │
-├── context/                                # Global state if needed
+├── context/                                # Global state
 │   └── AuthContext.jsx
 │
 │

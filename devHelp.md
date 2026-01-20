@@ -85,7 +85,9 @@ src/
 │   ├── SignIn.jsx
 │   ├── ComponentViewPage.jsx           # read :id from router params
 │   ├── ComponentAddPage.jsx            
-│   └── ComponentEditPage.jsx
+│   ├── ComponentEditPage.jsx         
+│   ├── Categories.jsx       
+│   └── Category.jsx
 │
 │
 ├── theme/                      # Global CSS + resets + themes

@@ -23,6 +23,11 @@ const App = () => {
                         <Dashboard />
                     </ProtectedRoute>
                 } />
+                <Route path="/" element = {
+                    <ProtectedRoute>
+                        <Dashboard />
+                    </ProtectedRoute>
+                } />
                 {/* temp */}
                 <Route path="/dashboard/testPage/exampleComponent" element = {
                     <ProtectedRoute>

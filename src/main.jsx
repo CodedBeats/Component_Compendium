@@ -7,15 +7,21 @@ import App from "./App.jsx";
 import { AuthProvider } from "./auth/providers/AuthProvider.jsx";
 // boundries
 import { AuthBoundry } from "./auth/boundries/AuthBoundry.jsx";
+// query
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+const queryClient = new QueryClient();
 // global style
 import "./index.css";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <AuthProvider>
-            <AuthBoundry>
-                <App />
-            </AuthBoundry>
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+                <AuthBoundry>
+                    <App />
+                </AuthBoundry>
+            </AuthProvider>
+        </QueryClientProvider>
     </StrictMode>
 );

@@ -59,7 +59,7 @@ src/
 │       │
 │       ├── ComponentAdd/                   # UI and feature specific to just adding a component
 │       │   ├── index.jsx
-│       │   └── ComponentView.module.css
+│       │   └── ComponentAdd.module.css
 │       │   └── useComponentAdd.js          # extracted add component logic
 │       │
 │       └── ComponentEdit/                  # UI and feature specific to just editing a component               

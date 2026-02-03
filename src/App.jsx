@@ -8,9 +8,10 @@ import { ProtectedRoute } from "./auth/routes/ProtectedRoute";
 import { PublicOnlyRoute } from "./auth/routes/PublicOnlyRoute";
 // pages
 import Dashboard from "./pages/Dashboard"
+import { ComponentAddPage } from "./pages/ComponentAddPage";
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
-import { Test } from "./pages/Test";
+import { Test } from "./pages/Test"
 
 
 const App = () => {
@@ -34,12 +35,16 @@ const App = () => {
                         <Test />
                     </ProtectedRoute>
                 } />
+                <Route path="/components/add" element = {
+                    <ProtectedRoute>
+                        <ComponentAddPage />
+                    </ProtectedRoute>
+                } />
 
                 {/* 
                     Planned routes
                     /components
                     /components/:componentID
-                    /components/add
                     /components/edit/:componentID
                     /categories
                     /categories/:categoryID

@@ -124,6 +124,11 @@ In Component
 `const { data: components, isLoading, error } = useComponents()`
 
 
+## Supabase CodeVariant Enums:
+React+Tailwind
+React+CSS
+HTML+CSS
+
 
 ## I'm stupid and need this
 #### `npm run dev`

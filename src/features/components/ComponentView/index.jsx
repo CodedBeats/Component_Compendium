@@ -1,0 +1,1 @@
+// extracted view component as feature for page 

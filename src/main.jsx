@@ -20,6 +20,7 @@ createRoot(document.getElementById("root")).render(
             <AuthProvider>
                 <AuthBoundry>
                     <App />
+                    <ReactQueryDevtools />
                 </AuthBoundry>
             </AuthProvider>
         </QueryClientProvider>

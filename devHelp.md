@@ -130,5 +130,10 @@ React+CSS
 HTML+CSS
 
 
+## Live Code Editor Notes
+You will not be allowed to input `/* CSS */` anywhere in the code
+This is because this is added as a indicator to seperate CSS code from the primary block (react/html)
+
+
 ## I'm stupid and need this
 #### `npm run dev`

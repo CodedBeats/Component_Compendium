@@ -1,0 +1,1 @@
+// extracted add component as feature for page 

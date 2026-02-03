@@ -59,7 +59,7 @@ src/
 │       │
 │       ├── ComponentAdd/                   # UI and feature specific to just adding a component
 │       │   ├── index.jsx
-│       │   └── ComponentView.module.css
+│       │   └── ComponentAdd.module.css
 │       │   └── useComponentAdd.js          # extracted add component logic
 │       │
 │       └── ComponentEdit/                  # UI and feature specific to just editing a component               
@@ -123,6 +123,16 @@ In Component
 `const { data: users, isLoading, error } = useUsers()`
 `const { data: components, isLoading, error } = useComponents()`
 
+
+## Supabase CodeVariant Enums:
+React+Tailwind
+React+CSS
+HTML+CSS
+
+
+## Live Code Editor Notes
+You will not be allowed to input `/* CSS */` anywhere in the code
+This is because this is added as a indicator to seperate CSS code from the primary block (react/html)
 
 
 ## I'm stupid and need this
